@@ -120,23 +120,46 @@ The implementation of more detection methods, as well as their evaluations, are 
 ## ⏳ Quick Start
 
 ### 1. Installation
-(option 1) You can run the following script to configure the necessary environment:
 
-```
-git clone git@github.com:SCLBD/DeepfakeBench.git
-cd DeepfakeBench
+**Option 1: Standard Installation (Local/Server)**
+
+```bash
+git clone https://github.com/ahmedelbamby-aast/DeepFakeBenchUpgraded.git
+cd DeepFakeBenchUpgraded
 conda create -n DeepfakeBench python=3.7.2
 conda activate DeepfakeBench
-sh install.sh
+bash install.sh
 ```
 
-(option 2) You can also utilize the supplied [`Dockerfile`](./Dockerfile) to set up the entire environment using Docker. This will allow you to execute all the codes in the benchmark without encountering any environment-related problems. Simply run the following commands to enter the Docker environment.
+**Option 2: Kaggle Notebook Installation** 🎯
 
+Perfect for quick experiments with free GPU access!
+
+```python
+# In a Kaggle notebook cell:
+!git clone https://github.com/ahmedelbamby-aast/DeepFakeBenchUpgraded.git
+%cd DeepFakeBenchUpgraded
+!bash kaggle_install.sh
 ```
+
+See [KAGGLE_SETUP.md](./KAGGLE_SETUP.md) for complete Kaggle guide with dataset setup and training examples.
+
+**Option 3: Docker Environment**
+
+You can also utilize the supplied [`Dockerfile`](./Dockerfile) to set up the entire environment using Docker. This will allow you to execute all the codes in the benchmark without encountering any environment-related problems.
+
+```bash
 docker build -t DeepfakeBench .
 docker run --gpus all -itd -v /path/to/this/repository:/app/ --shm-size 64G DeepfakeBench
 ```
 Note we used Docker version `19.03.14` in our setup. We highly recommend using this version for consistency, but later versions of Docker may also be compatible.
+
+> **✨ This Upgraded Version Includes:**
+> - ✅ PyTorch 2.x forward compatibility
+> - ✅ Python 3.8+ support  
+> - ✅ Secure model loading with `weights_only` parameter
+> - ✅ Modern API usage (torch.hub, np.int_)
+> - ✅ Kaggle-ready installation
 
 ### 2. Download Data
 
