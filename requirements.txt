@@ -1,25 +1,13 @@
 ﻿# DeepfakeBench Requirements
 # Compatible with Python 3.7-3.11
 # Updated with modern package versions
+# For Kaggle: Uses pre-installed versions of numpy, scipy, pandas, torch
 
-# Core Scientific Computing
-numpy>=1.21.6,<2.1.0
-pandas>=1.3.5,<2.0
-scipy==1.7.3
-
-# Image Processing
-Pillow==9.0.1
-opencv-python==4.6.0.66
-scikit-image==0.19.3
-scikit-learn==1.0.2
-imageio==2.9.0
-imgaug==0.4.0
-albumentations==1.1.0
-
-# Deep Learning - PyTorch
-torch==1.12.0
-torchvision==0.13.0
-torchaudio==0.12.0
+# Image Processing (install only what's missing)
+opencv-python
+scikit-image
+albumentations
+imgaug
 
 # Deep Learning - Models
 efficientnet-pytorch==0.7.1
@@ -28,23 +16,20 @@ segmentation-models-pytorch==0.3.2
 torchtoolbox==0.1.8.2
 
 # Transformers (for CLIP, X-CLIP detectors)
-transformers==4.30.2
-tokenizers<0.14,>=0.11
+transformers
+tokenizers
 regex
 
 # Training & Logging
-tensorboard==2.10.1
-tqdm>=4.60.0
+tensorboard
+tqdm
 
 # Utilities
-pyyaml>=6.0
-imutils==0.5.4
-seaborn==0.11.2
-setuptools==59.5.0
+pyyaml
+imutils
 einops
 loralib
 filterpy
-simplejson
 kornia
 fvcore
 

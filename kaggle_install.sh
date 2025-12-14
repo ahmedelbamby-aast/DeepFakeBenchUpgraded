@@ -30,31 +30,29 @@ else
 fi
 
 echo ""
-echo "Installing core packages..."
+echo "Installing packages (using Kaggle pre-installed versions where possible)..."
 
-# Core packages (many pre-installed on Kaggle)
+# Use Kaggle's pre-installed packages and only install missing ones
 echo "This may take 2-3 minutes..."
-pip install -q opencv-python==4.6.0.66 2>&1 | grep -v "dependency resolver" | grep -v "dopamine-rl" || true
-pip install -q scikit-image==0.19.3 2>&1 | grep -v "dependency resolver" || true
-pip install -q scikit-learn==1.0.2 2>&1 | grep -v "dependency resolver" || true
-pip install -q albumentations==1.1.0 2>&1 | grep -v "dependency resolver" || true
-pip install -q efficientnet-pytorch==0.7.1 2>&1 | grep -v "dependency resolver" || true
-pip install -q timm==0.6.13 2>&1 | grep -v "dependency resolver" || true
-pip install -q tensorboard==2.10.1 2>&1 | grep -v "dependency resolver" || true
+pip install -q --no-deps opencv-python 2>&1 | grep -v "dependency resolver" | grep -v "dopamine-rl" || true
+pip install -q --no-deps albumentations 2>&1 | grep -v "dependency resolver" || true
+pip install -q --no-deps imgaug 2>&1 | grep -v "dependency resolver" || true
+pip install -q --no-deps efficientnet-pytorch 2>&1 | grep -v "dependency resolver" || true
+pip install -q --no-deps timm 2>&1 | grep -v "dependency resolver" || true
 
 # Transformers (for CLIP detectors)
-echo "Installing transformers..." 2>&1 | grep -v "dependency resolver" || true
-pip install -q "tokenizers<0.14,>=0.11" --no-build-isolation 2>&1 | grep -v "dependency resolver" || true
-pip install -q regex 2>&1 | grep -v "dependency resolver" || true
+echo "Installing transformers..."
+pip install -q --no-deps transformers 2>&1 | grep -v "dependency resolver" || true
+pip install -q --no-deps tokenizers 2>&1 | grep -v "dependency resolver" || true
+pip install -q --no-deps regex 2>&1 | grep -v "dependency resolver" || true
 
 # Additional utilities
 echo "Installing additional utilities..."
-pip install -q einops loralib kornia fvcore simplejson filterpy 2>&1 | grep -v "dependency resolver" || true
+pip install -q --no-deps einops loralib kornia fvcore simplejson filterpy 2>&1 | grep -v "dependency resolver" || true
 
 # CLIP
 echo "Installing CLIP..."
-pip install -q git+https://github.com/openai/CLIP.git 2>&1 | grep -v "dependency resolver" || true
-pip install -q git+https://github.com/openai/CLIP.git
+pip install -q --no-deps git+https://github.com/openai/CLIP.git 2>&1 | grep -v "dependency resolver" || true
 
 echo ""
 echo "=========================================="
@@ -76,11 +74,14 @@ if torch.cuda.is_available():
 
 # Test imports
 try:
-    sys.path.insert(0, 'deepfakebench')
-    from detectors.xception_detector import XceptionDetector
+    import os
+    sys.path.insert(0, os.getcwd())
+    from deepfakebench.detectors.xception_detector import XceptionDetector
     print("\n✓ DeepfakeBench modules loaded successfully!")
 except Exception as e:
     print(f"\n⚠ Module import test: {e}")
+    print(f"   Current directory: {os.getcwd()}")
+    print(f"   Hint: Verify you're in DeepFakeBenchUpgraded folder")
 EOF
 
 if [ "$KAGGLE" = true ]; then
