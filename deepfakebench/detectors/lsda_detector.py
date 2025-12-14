@@ -157,7 +157,8 @@ class LSDADetector(AbstractDetector):
 class efficientnet(nn.Module):
     def __init__(self, pretrain='efficientnet-b4', sbi=None):
         super(efficientnet, self).__init__()
-        self.model = EfficientNet.from_pretrained(pretrain,weights_path='./training/pretrained/efficientnet-b4-6ed6700e.pth')
+        pretrained_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pretrained')
+        self.model = EfficientNet.from_pretrained(pretrain,weights_path=os.path.join(pretrained_dir, 'efficientnet-b4-6ed6700e.pth'))
 
         if pretrain == 'efficientnet-b4':
             self.conv = nn.Conv2d(1792, 512, 1)

@@ -112,7 +112,8 @@ class LRLDataset(DeepfakeAbstractBaseDataset):
 
 
 if __name__ == '__main__':
-    with open(r'H:\code\DeepfakeBench\training\config\detector\lrl_effnb4.yaml', 'r') as f:
+    config_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'config')
+    with open(os.path.join(config_dir, 'detector', 'lrl_effnb4.yaml'), 'r') as f:
         config = yaml.safe_load(f)
     # Get config relative to the project root
     config_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'config', 'train_config.yaml')
@@ -123,7 +124,9 @@ if __name__ == '__main__':
     if config['cuda']:
         torch.cuda.manual_seed_all(config['manualSeed'])
     config2['data_manner'] = 'lmdb'
-    config['dataset_json_folder'] = 'preprocessing/dataset_json_v3'
+    # Use dataset_json_folder from config or default
+    if 'dataset_json_folder' not in config:
+        config['dataset_json_folder'] = './deepfakebench/preprocessing/dataset_json'
     config.update(config2)
     train_set = LRLDataset(config=config, mode='train')
     train_data_loader = \

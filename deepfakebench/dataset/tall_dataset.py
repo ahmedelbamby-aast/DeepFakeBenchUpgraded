@@ -154,7 +154,8 @@ class TALLDataset(DeepfakeAbstractBaseDataset):
 
 
 if __name__ == "__main__":
-    with open('training/config/detector/tall.yaml', 'r') as f:
+    config_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'config')
+    with open(os.path.join(config_dir, 'detector', 'tall.yaml'), 'r') as f:
         config = yaml.safe_load(f)
     train_set = TALLDataset(
         config=config,

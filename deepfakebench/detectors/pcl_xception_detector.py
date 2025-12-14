@@ -253,7 +253,9 @@ if __name__ == '__main__':
         torch.cuda.manual_seed_all(config['manualSeed'])
     detector=PCLXceptionDetector(config=config).cuda()
     config['data_manner'] = 'lmdb'
-    config['dataset_json_folder'] = 'preprocessing/dataset_json_v3'
+    # Use dataset_json_folder from config or default
+    if 'dataset_json_folder' not in config:
+        config['dataset_json_folder'] = './deepfakebench/preprocessing/dataset_json'
     config['sample_size']=256
     config['with_mask']=True
     config['with_landmark']=True

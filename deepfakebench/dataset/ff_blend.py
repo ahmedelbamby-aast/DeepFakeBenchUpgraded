@@ -65,15 +65,18 @@ class FFBlendDataset(data.Dataset):
             self.env = lmdb.open(lmdb_path, create=False, subdir=True, readonly=True, lock=False)
 
         # Check if the dictionary has already been created
-        if os.path.exists('training/lib/nearest_face_info.pkl'):
-            with open('training/lib/nearest_face_info.pkl', 'rb') as f:
+        lib_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'lib')
+        face_info_path = os.path.join(lib_dir, 'nearest_face_info.pkl')
+        landmark_dict_path = os.path.join(lib_dir, 'landmark_dict_ffall.pkl')
+        if os.path.exists(face_info_path):
+            with open(face_info_path, 'rb') as f:
                 face_info = pickle.load(f)
         else:
             raise ValueError(f"Need to run the dataset/generate_xray_nearest.py before training the face xray.")
         self.face_info = face_info
         # Check if the dictionary has already been created
-        if os.path.exists('training/lib/landmark_dict_ffall.pkl'):
-            with open('training/lib/landmark_dict_ffall.pkl', 'rb') as f:
+        if os.path.exists(landmark_dict_path):
+            with open(landmark_dict_path, 'rb') as f:
                 landmark_dict = pickle.load(f)
         self.landmark_dict = landmark_dict
         self.imid_list = self.get_training_imglist()

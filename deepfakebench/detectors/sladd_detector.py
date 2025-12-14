@@ -239,7 +239,8 @@ class SLADDXceptionDetector(AbstractDetector):
         return pred_dict
 
 if __name__ == '__main__':
-    with open(r'H:\code\DeepfakeBench\training\config\detector\sladd_xception.yaml', 'r') as f:
+    config_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'config')
+    with open(os.path.join(config_dir, 'detector', 'sladd_xception.yaml'), 'r') as f:
         config = yaml.safe_load(f)
     if config['manualSeed'] is None:
         config['manualSeed'] = random.randint(1, 10000)
@@ -249,7 +250,9 @@ if __name__ == '__main__':
         torch.cuda.manual_seed_all(config['manualSeed'])
     detector=SLADDXceptionDetector(config=config).to(device)
     config['data_manner'] = 'lmdb'
-    config['dataset_json_folder'] = 'preprocessing/dataset_json_v3'
+    # Use dataset_json_folder from config or default
+    if 'dataset_json_folder' not in config:
+        config['dataset_json_folder'] = './deepfakebench/preprocessing/dataset_json'
     config['sample_size']=256
     config['with_mask']=True
     config['with_landmark']=True

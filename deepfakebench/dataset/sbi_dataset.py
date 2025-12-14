@@ -121,7 +121,8 @@ class SBIDataset(DeepfakeAbstractBaseDataset):
 
 
 if __name__ == '__main__':
-    with open('/data/home/zhiyuanyan/DeepfakeBench/training/config/detector/sbi.yaml', 'r') as f:
+    config_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'config')
+    with open(os.path.join(config_dir, 'detector', 'sbi.yaml'), 'r') as f:
         config = yaml.safe_load(f)
     train_set = SBIDataset(config=config, mode='train')
     train_data_loader = \

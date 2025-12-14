@@ -363,7 +363,8 @@ class LSDADataset(DeepfakeAbstractBaseDataset):
 
 
 if __name__ == '__main__':
-    with open('/data/home/zhiyuanyan/DeepfakeBench/training/config/detector/lsda.yaml', 'r') as f:
+    config_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'config')
+    with open(os.path.join(config_dir, 'detector', 'lsda.yaml'), 'r') as f:
         config = yaml.safe_load(f)
     train_set = LSDADataset(config=config, mode='train')
     custom_sampler = CustomSampler(num_groups=2*360, n_frame_per_vid=config['frame_num']['train'], batch_size=config['train_batchSize'], videos_per_group=5)

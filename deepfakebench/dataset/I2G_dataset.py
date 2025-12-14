@@ -119,13 +119,16 @@ class I2GDataset(DeepfakeAbstractBaseDataset):
         self.init_nearest()
 
     def init_nearest(self):
-        if os.path.exists('training/lib/nearest_face_info.pkl'):
-            with open('training/lib/nearest_face_info.pkl', 'rb') as f:
+        lib_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'lib')
+        face_info_path = os.path.join(lib_dir, 'nearest_face_info.pkl')
+        landmark_dict_path = os.path.join(lib_dir, 'landmark_dict_ffall.pkl')
+        if os.path.exists(face_info_path):
+            with open(face_info_path, 'rb') as f:
                 face_info = pickle.load(f)
         self.face_info = face_info
         # Check if the dictionary has already been created
-        if os.path.exists('training/lib/landmark_dict_ffall.pkl'):
-            with open('training/lib/landmark_dict_ffall.pkl', 'rb') as f:
+        if os.path.exists(landmark_dict_path):
+            with open(landmark_dict_path, 'rb') as f:
                 landmark_dict = pickle.load(f)
         self.landmark_dict = landmark_dict
 
@@ -379,7 +382,9 @@ if __name__ == '__main__':
     with open(os.path.join(config_dir, 'train_config.yaml'), 'r') as f:
         config2 = yaml.safe_load(f)
     config2['data_manner'] = 'lmdb'
-    config['dataset_json_folder'] = 'preprocessing/dataset_json_v3'
+    # Use dataset_json_folder from config or default
+    if 'dataset_json_folder' not in config:
+        config['dataset_json_folder'] = './deepfakebench/preprocessing/dataset_json'
     config.update(config2)
     dataset = I2GDataset(config=config)
     batch_size = 2

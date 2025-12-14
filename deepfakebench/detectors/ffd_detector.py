@@ -215,8 +215,9 @@ class PCATemplateMap(nn.Module):
 
 def get_templates():
     templates_list = []
+    lib_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'lib', 'component', 'MCT')
     for i in range(10):
-        img = imread('./training/lib/component/MCT/template{:d}.png'.format(i))
+        img = imread(os.path.join(lib_dir, 'template{:d}.png'.format(i)))
         templates_list.append(transforms.functional.to_tensor(img)[0:1,0:19,0:19])
     if torch.cuda.is_available():
         templates = torch.stack(templates_list).cuda()

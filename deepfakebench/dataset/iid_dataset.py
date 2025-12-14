@@ -105,7 +105,9 @@ if __name__ == '__main__':
     with open(os.path.join(config_dir, 'train_config.yaml'), 'r') as f:
         config2 = yaml.safe_load(f)
     config2['data_manner'] = 'lmdb'
-    config['dataset_json_folder'] = 'preprocessing/dataset_json_v3'
+    # Use dataset_json_folder from config or default
+    if 'dataset_json_folder' not in config:
+        config['dataset_json_folder'] = './deepfakebench/preprocessing/dataset_json'
     config.update(config2)
     dataset = IIDDataset(config=config)
     batch_size = 2
