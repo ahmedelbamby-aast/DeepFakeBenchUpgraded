@@ -6,6 +6,7 @@
 # Image Processing (install only what's missing)
 opencv-python
 scikit-image
+scikit-learn
 albumentations
 imgaug
 

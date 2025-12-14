@@ -52,6 +52,8 @@ pip install -q --no-deps einops loralib kornia simplejson filterpy 2>&1 | grep -
 pip install -q iopath 2>&1 | grep -v "dependency resolver" || true
 pip install -q fvcore 2>&1 | grep -v "dependency resolver" || true
 pip install -q lmdb 2>&1 | grep -v "dependency resolver" || true
+pip install -q --no-deps pyyaml 2>&1 | grep -v "dependency resolver" || true
+pip install -q --no-deps scikit-learn 2>&1 | grep -v "dependency resolver" || true
 
 # CLIP
 echo "Installing CLIP..."

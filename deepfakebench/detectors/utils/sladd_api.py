@@ -303,7 +303,9 @@ class TransferModel(nn.Module):
                 # del model.fc
             return model
 
-        self.model = return_pytorch04_xception()
+        # Check if pretrained path is valid
+        use_pretrained = config.get('pretrained', 'None') not in ['None', None, '']
+        self.model = return_pytorch04_xception(pretrained=use_pretrained)
         # Replace fc
 
         if inc != 3:
