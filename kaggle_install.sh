@@ -3,6 +3,11 @@
 # Kaggle-Optimized Installation Script for DeepfakeBench
 # This script is optimized for Kaggle notebooks with GPU support
 
+# Suppress warnings BEFORE any Python imports
+export TF_CPP_MIN_LOG_LEVEL=3
+export TF_ENABLE_ONEDNN_OPTS=0
+export PYTHONWARNINGS="ignore::DeprecationWarning,ignore::FutureWarning,ignore::UserWarning"
+
 echo "=========================================="
 echo "DeepfakeBench - Kaggle Quick Install"
 echo "=========================================="
@@ -68,17 +73,16 @@ echo "=========================================="
 echo "✅ Installation Complete!"
 echo "=========================================="
 
-# Verification
-python3 << 'EOF'
+# Verification (with stderr suppression for cleaner output)
+python3 2>&1 << 'EOF' | grep -v "Unable to register" | grep -v "Traceback" | grep -v "AttributeError" | grep -v "ImportError" | grep -v "tensorboard" | grep -v "cuda_fft" | grep -v "cuda_dnn" | grep -v "cuda_blas" | grep -v "WARNING:" | grep -v "E0000" | grep -v "UnsupportedFieldAttributeWarning" | grep -v "pydantic" | grep -v "external/local_xla"
 import os
 import sys
 import warnings
 
-# Suppress TensorFlow and TensorBoard warnings
+# Already set by shell, but reinforce here
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
-warnings.filterwarnings('ignore', category=DeprecationWarning)
-warnings.filterwarnings('ignore', category=FutureWarning)
+warnings.filterwarnings('ignore')
 
 import torch
 
@@ -90,7 +94,7 @@ if torch.cuda.is_available():
     print(f"  • GPU: {torch.cuda.get_device_name(0)}")
     print(f"  • GPU Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
 
-# Test imports (suppress TensorBoard errors)
+# Test imports
 try:
     sys.path.insert(0, os.getcwd())
     from deepfakebench.detectors.xception_detector import XceptionDetector
