@@ -8,6 +8,10 @@ project_root_dir = os.path.dirname(parent_dir)
 sys.path.append(parent_dir)
 sys.path.append(project_root_dir)
 
-from slowfast.utils.env import setup_environment
-
-setup_environment()
+try:
+    from slowfast.utils.env import setup_environment
+    setup_environment()
+except ImportError as e:
+    import warnings
+    warnings.warn(f"SlowFast setup skipped due to missing dependencies: {e}")
+    pass

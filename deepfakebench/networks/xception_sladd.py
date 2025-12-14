@@ -8,7 +8,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.utils.model_zoo as model_zoo
 
-from metrics.registry import BACKBONE
+from deepfakebench.metrics.registry import BACKBONE
 
 pretrained_settings = {
     'xception': {

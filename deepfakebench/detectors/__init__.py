@@ -6,8 +6,13 @@ project_root_dir = os.path.dirname(parent_dir)
 sys.path.append(parent_dir)
 sys.path.append(project_root_dir)
 
-from metrics.registry import DETECTOR
-from .utils import slowfast
+from deepfakebench.metrics.registry import DETECTOR
+
+# Import slowfast only when needed (has heavy dependencies)
+try:
+    from .utils import slowfast
+except ImportError:
+    slowfast = None
 
 from .facexray_detector import FaceXrayDetector
 from .xception_detector import XceptionDetector

@@ -6,7 +6,7 @@ project_root_dir = os.path.dirname(parent_dir)
 sys.path.append(parent_dir)
 sys.path.append(project_root_dir)
 
-from metrics.registry import BACKBONE
+from deepfakebench.metrics.registry import BACKBONE
 
 from .xception import Xception
 from .mesonet import Meso4, MesoInception4

@@ -2,7 +2,7 @@ import torch
 import torch.nn.functional as F
 from detectors.multi_attention_detector import AttentionPooling
 from .abstract_loss_func import AbstractLossClass
-from metrics.registry import LOSSFUNC
+from deepfakebench.metrics.registry import LOSSFUNC
 
 
 @LOSSFUNC.register_module(module_name="region_independent_loss")

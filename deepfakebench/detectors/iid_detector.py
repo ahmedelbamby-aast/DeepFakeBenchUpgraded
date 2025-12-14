@@ -46,7 +46,7 @@ from torch.nn import DataParallel
 from torch.utils.tensorboard import SummaryWriter
 
 from metrics.base_metrics_class import calculate_metrics_for_train
-from networks.iresnet_iid import iresnet50
+from deepfakebench.networks.iresnet_iid import iresnet50
 
 from detectors.base_detector import AbstractDetector
 from detectors import DETECTOR

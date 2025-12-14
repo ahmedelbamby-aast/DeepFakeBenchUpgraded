@@ -7,7 +7,7 @@ from torchvision import models, transforms
 import torch
 import torch.nn as nn
 from .abstract_loss_func import AbstractLossClass
-from metrics.registry import LOSSFUNC
+from deepfakebench.metrics.registry import LOSSFUNC
 
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')

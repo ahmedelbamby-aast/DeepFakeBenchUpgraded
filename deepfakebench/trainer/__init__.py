@@ -6,4 +6,4 @@ project_root_dir = os.path.dirname(parent_dir)
 sys.path.append(parent_dir)
 sys.path.append(project_root_dir)
 
-from metrics.registry import TRAINER
+from deepfakebench.metrics.registry import TRAINER

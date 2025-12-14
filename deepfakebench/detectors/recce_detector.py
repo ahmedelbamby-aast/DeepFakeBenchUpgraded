@@ -42,7 +42,7 @@ import numpy as np
 import argparse
 from metrics.base_metrics_class import calculate_metrics_for_train
 
-from networks.xception import SeparableConv2d, Block
+from deepfakebench.networks.xception import SeparableConv2d, Block
 from .base_detector import AbstractDetector
 from detectors import DETECTOR
 from networks import BACKBONE

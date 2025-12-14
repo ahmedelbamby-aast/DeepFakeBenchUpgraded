@@ -122,7 +122,7 @@ def get_pretraiend_ae(enc_path='pretrained/ae/vae/enc.pth', dec_path='pretrained
     ae.eval()
     return ae
 
-# from networks.pix2pix_network import UnetGenerator
+# from deepfakebench.networks.pix2pix_network import UnetGenerator
 def get_pretraiend_unet(path='pretrained/ae/unet/ckpt_srm.pth'):
     unet = UnetGenerator(3, 3, 8)
     unet.load_state_dict(torch.load(path, map_location='cpu'))

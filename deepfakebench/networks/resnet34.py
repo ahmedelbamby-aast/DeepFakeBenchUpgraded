@@ -13,7 +13,7 @@ import torch
 import torchvision
 import torch.nn as nn
 import torch.nn.functional as F
-from metrics.registry import BACKBONE
+from deepfakebench.metrics.registry import BACKBONE
 
 logger = logging.getLogger(__name__)
 

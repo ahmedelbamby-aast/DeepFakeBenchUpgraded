@@ -19,7 +19,7 @@ from torch.nn import Parameter
 import torch as th
 
 from .abstract_loss_func import AbstractLossClass
-from metrics.registry import LOSSFUNC
+from deepfakebench.metrics.registry import LOSSFUNC
 
 
 #------------ AMSoftmax Loss ----------------------   

@@ -121,7 +121,7 @@ from .utils.slowfast.models.video_model_builder import ResNet as ResNetOri
 from .utils.slowfast.config.defaults import get_cfg
 from torch import nn
 from inspect import signature
-from networks.time_transformer import TimeTransformer
+from deepfakebench.networks.time_transformer import TimeTransformer
 import random
 
 

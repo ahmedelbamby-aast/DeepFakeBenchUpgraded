@@ -42,8 +42,8 @@ from collections import defaultdict
 
 
 from efficientnet_pytorch import EfficientNet
-from networks.iresnet import iresnet100
-from networks.xception import Xception
+from deepfakebench.networks.iresnet import iresnet100
+from deepfakebench.networks.xception import Xception
 from detectors import DETECTOR
 from sklearn import metrics
 from metrics.base_metrics_class import calculate_metrics_for_train

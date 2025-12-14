@@ -6,7 +6,7 @@ project_root_dir = os.path.dirname(parent_dir)
 sys.path.append(parent_dir)
 sys.path.append(project_root_dir)
 
-from metrics.registry import LOSSFUNC
+from deepfakebench.metrics.registry import LOSSFUNC
 
 from .cross_entropy_loss import CrossEntropyLoss
 from .consistency_loss import ConsistencyCos

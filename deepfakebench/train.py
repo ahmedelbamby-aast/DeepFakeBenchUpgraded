@@ -29,7 +29,7 @@ import torch.distributed as dist
 from optimizor.SAM import SAM
 from optimizor.LinearLR import LinearDecayLR
 
-from trainer.trainer import Trainer
+from deepfakebench.trainer.trainer import Trainer
 from detectors import DETECTOR
 from dataset import *
 from metrics.utils import parse_metric_for_print

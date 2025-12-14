@@ -11,7 +11,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from typing import Union
 from efficientnet_pytorch import EfficientNet
-from metrics.registry import BACKBONE
+from deepfakebench.metrics.registry import BACKBONE
 import os
 
 @BACKBONE.register_module(module_name="efficientnetb4")
