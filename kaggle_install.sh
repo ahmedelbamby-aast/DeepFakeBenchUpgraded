@@ -70,8 +70,17 @@ echo "=========================================="
 
 # Verification
 python3 << 'EOF'
-import torch
+import os
 import sys
+import warnings
+
+# Suppress TensorFlow and TensorBoard warnings
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+warnings.filterwarnings('ignore', category=DeprecationWarning)
+warnings.filterwarnings('ignore', category=FutureWarning)
+
+import torch
 
 print("\n📊 Environment Info:")
 print(f"  • Python: {sys.version.split()[0]}")
@@ -81,9 +90,8 @@ if torch.cuda.is_available():
     print(f"  • GPU: {torch.cuda.get_device_name(0)}")
     print(f"  • GPU Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
 
-# Test imports
+# Test imports (suppress TensorBoard errors)
 try:
-    import os
     sys.path.insert(0, os.getcwd())
     from deepfakebench.detectors.xception_detector import XceptionDetector
     print("\n✓ DeepfakeBench modules loaded successfully!")
