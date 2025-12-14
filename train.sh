@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 
 # DeepfakeBench Training Script
 # Example usage for distributed training with multiple GPUs
@@ -16,13 +16,13 @@ echo "GPUs: ${NUM_GPUS}"
 echo "====================================="
 
 # Single GPU training (recommended for testing)
-# python training/train.py --detector_path ./training/config/detector/${DETECTOR}.yaml
+# python deepfakebench/train.py --detector_path ./deepfakebench/config/detector/${DETECTOR}.yaml
 
 # Multi-GPU training with DDP (Distributed Data Parallel)
 nohup python3 -m torch.distributed.launch \
     --nproc_per_node=${NUM_GPUS} \
-    training/train.py \
-    --detector_path ./training/config/detector/${DETECTOR}.yaml \
+    deepfakebench/train.py \
+    --detector_path ./deepfakebench/config/detector/${DETECTOR}.yaml \
     --ddp \
     > training_${DETECTOR}.log 2>&1 &
 

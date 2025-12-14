@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 
 # DeepfakeBench Installation Script
 # Compatible with local environments and Kaggle notebooks

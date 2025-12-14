@@ -1,0 +1,18 @@
+include README.md
+include LICENSE
+include requirements.txt
+include KAGGLE_SETUP.md
+include install.sh
+include kaggle_install.sh
+include train.sh
+
+recursive-include deepfakebench/config *.yaml
+recursive-include deepfakebench/pretrained *
+recursive-include figures *.png *.jpg
+
+exclude .gitignore
+exclude Dockerfile
+recursive-exclude datasets *
+recursive-exclude .git *
+recursive-exclude __pycache__ *
+recursive-exclude *.egg-info *

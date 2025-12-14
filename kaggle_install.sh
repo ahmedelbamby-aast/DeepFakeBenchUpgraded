@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 
 # Kaggle-Optimized Installation Script for DeepfakeBench
 # This script is optimized for Kaggle notebooks with GPU support
@@ -76,7 +76,7 @@ if torch.cuda.is_available():
 
 # Test imports
 try:
-    sys.path.insert(0, 'training')
+    sys.path.insert(0, 'deepfakebench')
     from detectors.xception_detector import XceptionDetector
     print("\n✓ DeepfakeBench modules loaded successfully!")
 except Exception as e:
@@ -91,10 +91,10 @@ if [ "$KAGGLE" = true ]; then
     echo "  • GPU time limit: 30 hours/week"
     echo ""
     echo "🚀 Ready to train!"
-    echo "   python training/train.py --detector_path ./training/config/detector/xception.yaml"
+    echo "   python deepfakebench/train.py --detector_path ./deepfakebench/config/detector/xception.yaml"
     echo ""
     echo "Note: Ignore 'dopamine-rl' dependency warnings (not used by DeepfakeBench)
-    echo "   python training/train.py --detector_path ./training/config/detector/xception.yaml"
+    echo "   python deepfakebench/train.py --detector_path ./deepfakebench/config/detector/xception.yaml"
 fi
 
 echo "=========================================="

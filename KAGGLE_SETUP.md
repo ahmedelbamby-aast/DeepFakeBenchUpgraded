@@ -1,4 +1,4 @@
-# 🚀 DeepfakeBench on Kaggle
+﻿# 🚀 DeepfakeBench on Kaggle
 
 Complete guide to running DeepfakeBench on Kaggle notebooks with GPU support.
 
@@ -46,7 +46,7 @@ Complete guide to running DeepfakeBench on Kaggle notebooks with GPU support.
 ```python
 import torch
 import sys
-sys.path.insert(0, 'training')
+sys.path.insert(0, 'deepfakebench')
 
 print(f"✓ PyTorch: {torch.__version__}")
 print(f"✓ CUDA Available: {torch.cuda.is_available()}")
@@ -97,15 +97,15 @@ import os
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 # Run training
-!python training/train.py \
-    --detector_path ./training/config/detector/xception.yaml \
+!python deepfakebench/train.py \
+    --detector_path ./deepfakebench/config/detector/xception.yaml \
     --train_dataset FaceForensics++ \
     --test_dataset Celeb-DF
 ```
 
 ### Configuration
 
-Edit detector config files in `training/config/detector/`:
+Edit detector config files in `deepfakebench/config/detector/`:
 - Adjust `batch_size` based on GPU memory (Kaggle P100: 16-32)
 - Set `num_epochs` appropriately
 - Configure data paths
@@ -133,12 +133,12 @@ from detectors.xception_detector import XceptionDetector
 print(f"✓ GPU: {torch.cuda.get_device_name(0)}")
 
 # Cell 5: Train
-!python training/train.py \
-    --detector_path ./training/config/detector/xception.yaml
+!python deepfakebench/train.py \
+    --detector_path ./deepfakebench/config/detector/xception.yaml
 
 # Cell 6: Evaluate
-!python training/test.py \
-    --detector_path ./training/config/detector/xception.yaml \
+!python deepfakebench/test.py \
+    --detector_path ./deepfakebench/config/detector/xception.yaml \
     --weights_path path/to/checkpoint.pth
 ```
 
@@ -190,7 +190,7 @@ sys.path.insert(0, 'training')
 ```bash
 # Download from GitHub releases
 !wget https://github.com/SCLBD/DeepfakeBench/releases/download/v1.0.1/xception.pth \
-    -O training/pretrained/xception.pth
+    -O deepfakebench/pretrained/xception.pth
 ```
 
 ## Full Kaggle Notebook Example

@@ -1,4 +1,4 @@
-# DeepfakeBench Requirements
+﻿# DeepfakeBench Requirements
 # Compatible with Python 3.7-3.11
 # Updated with modern package versions
 
