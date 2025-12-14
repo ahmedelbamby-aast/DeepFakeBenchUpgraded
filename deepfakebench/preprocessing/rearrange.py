@@ -96,12 +96,41 @@ def generate_dataset_file(dataset_name, dataset_root_path, output_file_path, com
         # Load the JSON files for data split
         dataset_path = os.path.join(dataset_root_path, 'FaceForensics++')
         
+        # Check for split files - first in dataset, then in /kaggle/working/splits (for Kaggle)
+        split_paths = [
+            os.path.join(dataset_root_path, 'FaceForensics++'),
+            '/kaggle/working/splits',
+            './splits'
+        ]
+        
+        train_file = None
+        val_file = None
+        test_file = None
+        
+        for split_path in split_paths:
+            train_candidate = os.path.join(split_path, 'train.json')
+            val_candidate = os.path.join(split_path, 'val.json')
+            test_candidate = os.path.join(split_path, 'test.json')
+            
+            if os.path.exists(train_candidate) and os.path.exists(val_candidate) and os.path.exists(test_candidate):
+                train_file = train_candidate
+                val_file = val_candidate
+                test_file = test_candidate
+                print(f"Found split files in: {split_path}")
+                break
+        
+        if not train_file:
+            raise FileNotFoundError(
+                f"Could not find train.json, val.json, test.json in any of: {split_paths}\n"
+                f"On Kaggle, make sure to include these files in your dataset or generate them in /kaggle/working/splits/"
+            )
+        
         # Load the JSON files for data split
-        with open(file=os.path.join(os.path.join(dataset_root_path, 'FaceForensics++', 'train.json')), mode='r') as f:
+        with open(file=train_file, mode='r') as f:
             train_json = json.load(f)
-        with open(file=os.path.join(os.path.join(dataset_root_path, 'FaceForensics++', 'val.json')), mode='r') as f:
+        with open(file=val_file, mode='r') as f:
             val_json = json.load(f)
-        with open(file=os.path.join(os.path.join(dataset_root_path, 'FaceForensics++', 'test.json')), mode='r') as f:
+        with open(file=test_file, mode='r') as f:
             test_json = json.load(f)
             
         # Create a dictionary for searching the data split 
