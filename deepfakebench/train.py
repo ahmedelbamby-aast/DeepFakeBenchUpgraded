@@ -244,8 +244,8 @@ def main():
         config['test_dataset'] = args.test_dataset
     config['save_ckpt'] = args.save_ckpt
     config['save_feat'] = args.save_feat
-    if config['lmdb']:
-        config['dataset_json_folder'] = 'preprocessing/dataset_json_v3'
+    # Note: dataset_json_folder should be set in config files, not hardcoded
+    # Removed: if config['lmdb']: config['dataset_json_folder'] = 'preprocessing/dataset_json_v3'
     # create logger
     timenow=datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
     task_str = f"_{config['task_target']}" if config.get('task_target', None) is not None else ""
