@@ -1,19 +1,33 @@
-﻿# DeepfakeBench: A Comprehensive Benchmark of Deepfake Detection (NeurIPS 2023 D&B)
+﻿# DeepfakeBench Upgraded: A Comprehensive Benchmark of Deepfake Detection
 
-[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC_BY--NC_4.0-brightgreen.svg)](https://creativecommons.org/licenses/by-nc/4.0/) ![Release .10](https://img.shields.io/badge/Release-1.0-brightgreen) ![PyTorch](https://img.shields.io/badge/PyTorch-1.11-brightgreen) ![Python](https://img.shields.io/badge/Python-3.7.2-brightgreen)
+[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC_BY--NC_4.0-brightgreen.svg)](https://creativecommons.org/licenses/by-nc/4.0/) ![Release 2.0](https://img.shields.io/badge/Release-2.0-brightgreen) ![PyTorch](https://img.shields.io/badge/PyTorch-2.x-brightgreen) ![Python](https://img.shields.io/badge/Python-3.8--3.12-brightgreen) ![Kaggle](https://img.shields.io/badge/Kaggle-Optimized-blue)
 
-<b> Authors: <a href='https://yzy-stack.github.io/'>Zhiyuan Yan</a>, <a href='https://yzhang2016.github.io/'>Yong Zhang</a>, Xinhang Yuan, <a href='https://cse.buffalo.edu/~siweilyu/'>Siwei Lyu</a>, <a href='https://sites.google.com/site/baoyuanwu2015/'>Baoyuan Wu* </a>  </b>
+<b> Original Authors: <a href='https://yzy-stack.github.io/'>Zhiyuan Yan</a>, <a href='https://yzhang2016.github.io/'>Yong Zhang</a>, Xinhang Yuan, <a href='https://cse.buffalo.edu/~siweilyu/'>Siwei Lyu</a>, <a href='https://sites.google.com/site/baoyuanwu2015/'>Baoyuan Wu*</a>  </b>
 
-[[paper](https://arxiv.org/abs/2307.01426)] [[pre-trained weights](https://github.com/SCLBD/DeepfakeBench/releases/tag/v1.0.1)]
+[[paper](https://arxiv.org/abs/2307.01426)] [[original repo](https://github.com/SCLBD/DeepfakeBench)] [[upgraded repo](https://github.com/ahmedelbamby-aast/DeepFakeBenchUpgraded)] [[updates documentation](UPDATES.md)]
+
+> **🎉 Version 2.0.0 - Fully Upgraded & Kaggle Optimized**
+> - ✅ Python 3.8-3.12 & PyTorch 2.x compatible
+> - ✅ Optimized for Kaggle & Google Colab (2-3 min install)
+> - ✅ Package restructured - pip installable
+> - ✅ 73+ files with corrected import paths
+> - ✅ All dependencies fixed and tested
+> - ✅ **See [UPDATES.md](UPDATES.md) for complete changelog**
 
 
 
->  ❗️❗️❗️ **News:**
-> 1. **LATEST DETECTOR**: Our **most powerful model** ([paper](https://arxiv.org/abs/2411.15633)) has been accepted by **ICML 25 Spotlight** ⭐. We propose a highly generalizable and efficient detection method that can be used to **detect both face deepfake images and synthetic images** (not limited to face). We have released the [code](https://github.com/YZY-stack/Effort-AIGI-Detection) based on the DeepfakeBench codebase.
-> 
-> 2. **NEW DATASET**: We are excited to introduce our **brand-new deepfake dataset** called DF40, comprising **40 distinct deepfake techniques, even the just released SoTAs**. DF40 is designed for seamless integration into the workflow of DeepfakeBench, allowing you to train or test just as you would with other datasets like Celeb-DF and FF++. Please refer to [DF40 dataset](https://github.com/YZY-stack/DF40) for details.
->    
-> 3. The pre-trained weights of 3D R50 for training I3D, FTCN, and AltFreezing are [here](https://github.com/SCLBD/DeepfakeBench/releases/download/v1.0.3/I3D_8x8_R50.pth)
+>  ❗️ **Upgrade News - Version 2.0.0:**
+> 1. **Kaggle Ready**: Fully optimized for Kaggle notebooks with streamlined 2-3 minute installation
+> 2. **Modern Python**: Compatible with Python 3.8-3.12 and PyTorch 2.x
+> 3. **Fixed Dependencies**: All import paths corrected, missing packages added
+> 4. **Optional TensorBoard**: Works without TensorBoard installation
+> 5. **Dataset Compatible**: FaceForensics++ c23 structure fully supported
+> 6. **Complete Documentation**: See [UPDATES.md](UPDATES.md) for all changes
+
+>  ❗️ **Original DeepfakeBench News:**
+> 1. **LATEST DETECTOR**: Effort ([paper](https://arxiv.org/abs/2411.15633)) accepted by **ICML 25 Spotlight** ⭐ - [code](https://github.com/YZY-stack/Effort-AIGI-Detection)
+> 2. **NEW DATASET**: DF40 with 40 distinct deepfake techniques - [DF40 dataset](https://github.com/YZY-stack/DF40)
+> 3. **Pretrained Weights**: 3D R50 for I3D, FTCN, AltFreezing - [download](https://github.com/SCLBD/DeepfakeBench/releases/download/v1.0.3/I3D_8x8_R50.pth)
 
 
 
@@ -60,21 +74,47 @@ Welcome to *DeepfakeBench*, your one-stop solution for deepfake detection! Here 
 
 <font size=4><b> Table of Contents </b></font>
 
+- [Quick Start (Kaggle)](#-quick-start-kaggle)
 - [Features](#-features)
-- [Quick Start](#-quick-start)
-  - [Installation](#1-installation)
-  - [Download Data](#2-download-data)
-  - [Preprocessing (optional)](#3-preprocessing-optional)
-  - [Rearrangement](#4-rearrangement)
-  - [Training (optional)](#4-training-optional)
-  - [Evaluation](#5-evaluation)
+- [Installation](#-installation)
 - [Supported Detectors](#-supported-detectors)
-- [Results](#-results)
+- [What's New in v2.0](#-whats-new-in-v20)
+- [Documentation](#-documentation)
 - [Citation](#-citation)
-- [Copyright](#%EF%B8%8F-license)
+- [License](#%EF%B8%8F-license)
 
 ---
 
+## 🚀 Quick Start (Kaggle)
+<a href="#top">[Back to top]</a>
+
+Get started in **2-3 minutes** on Kaggle:
+
+```python
+# Cell 1: Clone & Install
+!git clone https://github.com/ahmedelbamby-aast/DeepFakeBenchUpgraded.git
+%cd DeepFakeBenchUpgraded
+!bash kaggle_install.sh
+
+# Cell 2: Test
+import sys
+sys.path.insert(0, '/kaggle/working/DeepFakeBenchUpgraded')
+from deepfakebench.detectors.sladd_detector import SLADDXceptionDetector
+
+config = {
+    'backbone_name': 'xception_sladd',
+    'backbone_config': {'mode': 'original', 'num_classes': 2, 'inc': 3, 'dropout': False},
+    'pretrained': 'None', 'loss_func': 'cross_entropy', 'typeloss_func': 'am_softmax',
+    'optimizer': {'adam': {'lr': 0.0002, 'beta1': 0.9, 'weight_decay': 0.0005}}
+}
+
+detector = SLADDXceptionDetector(config)
+print(f"✓ Ready! Model: {sum(p.numel() for p in detector.parameters())/1e6:.2f}M parameters")
+```
+
+**For complete guides, see [UPDATES.md](UPDATES.md)**
+
+---
 
 ## 📚 Features
 <a href="#top">[Back to top]</a>
@@ -117,52 +157,70 @@ DeepfakeBench will be continuously updated to track the latest advances in deepf
 The implementation of more detection methods, as well as their evaluations, are on the way. **You are welcome to contribute your detection methods to DeepfakeBench.**
 
 
-## ⏳ Quick Start
+---
 
-### 1. Installation
+## 💻 Installation
+<a href="#top">[Back to top]</a>
 
-**Option 1: Standard Installation (Local/Server)**
-
+### Kaggle / Google Colab (Recommended)
 ```bash
-git clone https://github.com/ahmedelbamby-aast/DeepFakeBenchUpgraded.git
-cd DeepFakeBenchUpgraded
-conda create -n DeepfakeBench python=3.7.2
-conda activate DeepfakeBench
-bash install.sh
-```
-
-**Option 2: Kaggle Notebook Installation** 🎯
-
-Perfect for quick experiments with free GPU access!
-
-```python
-# In a Kaggle notebook cell:
 !git clone https://github.com/ahmedelbamby-aast/DeepFakeBenchUpgraded.git
 %cd DeepFakeBenchUpgraded
 !bash kaggle_install.sh
 ```
 
-See [KAGGLE_SETUP.md](./KAGGLE_SETUP.md) for complete Kaggle guide with dataset setup and training examples.
-
-**Option 3: Docker Environment**
-
-You can also utilize the supplied [`Dockerfile`](./Dockerfile) to set up the entire environment using Docker. This will allow you to execute all the codes in the benchmark without encountering any environment-related problems.
-
+### Local Installation
 ```bash
-docker build -t DeepfakeBench .
-docker run --gpus all -itd -v /path/to/this/repository:/app/ --shm-size 64G DeepfakeBench
+git clone https://github.com/ahmedelbamby-aast/DeepFakeBenchUpgraded.git
+cd DeepFakeBenchUpgraded
+pip install -r requirements.txt
 ```
-Note we used Docker version `19.03.14` in our setup. We highly recommend using this version for consistency, but later versions of Docker may also be compatible.
 
-> **✨ This Upgraded Version Includes:**
-> - ✅ PyTorch 2.x forward compatibility
-> - ✅ Python 3.8+ support  
-> - ✅ Secure model loading with `weights_only` parameter
-> - ✅ Modern API usage (torch.hub, np.int_)
-> - ✅ Kaggle-ready installation
+**Requirements:**
+- Python 3.8-3.12
+- PyTorch 2.x
+- CUDA 11.8+ (optional, for GPU)
 
-### 2. Download Data
+For detailed setup instructions, see [UPDATES.md](UPDATES.md#installation)
 
+---
+
+## 🆕 What's New in v2.0
+<a href="#top">[Back to top]</a>
+
+### Major Improvements
+
+✅ **Modern Python Support** - Python 3.8-3.12, PyTorch 2.x  
+✅ **Kaggle Optimized** - 2-3 minute installation, tested on GPU T4 & P100  
+✅ **Import Paths Fixed** - 73+ files updated with correct `deepfakebench.` prefix  
+✅ **Optional Dependencies** - TensorBoard, dlib now optional  
+✅ **Dataset Compatible** - FaceForensics++ c23 structure fully supported  
+✅ **Clean Package** - Restructured as pip-installable `deepfakebench` v2.0.0  
+
+### Technical Fixes
+
+- **NumPy**: `np.int` → `int`, `np.float` → `float` (34 files)
+- **PyTorch**: `torch.hub.load_state_dict_from_url()` with `weights_only`
+- **Lazy Loading**: Dlib and CUDA checks only when needed
+- **Bug Fixes**: Pretrained model validation, debug output removed
+
+**Complete changelog:** [UPDATES.md](UPDATES.md)
+
+---
+
+## 📖 Documentation
+<a href="#top">[Back to top]</a>
+
+| Guide | Description |
+|-------|-------------|
+| **[UPDATES.md](UPDATES.md)** | Complete v2.0 changelog and upgrade details |
+| **[KAGGLE_TEST.md](KAGGLE_TEST.md)** | Quick start guide for Kaggle |
+| **[KAGGLE_DATASET_GUIDE.md](KAGGLE_DATASET_GUIDE.md)** | Dataset structure compatibility guide |
+| **[FOLDER_STRUCTURE.md](FOLDER_STRUCTURE.md)** | Project organization reference |
+
+---
+
+## 📦 Datasets
 <a href="#top">[Back to top]</a>
 
 All datasets used in DeepfakeBench can be downloaded from their own websites or repositories and preprocessed accordingly.
