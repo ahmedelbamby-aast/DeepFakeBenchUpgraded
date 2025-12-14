@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 
 # Kaggle-Optimized Installation Script for DeepfakeBench
 # This script is optimized for Kaggle notebooks with GPU support
@@ -85,7 +85,8 @@ EOF
 
 if [ "$KAGGLE" = true ]; then
     echo ""
-    echo "📝 KEnable GPU: Settings → Accelerator → GPU T4 x2"
+    echo "📝 Next Steps:"
+    echo "  • Enable GPU: Settings → Accelerator → GPU T4 x2"
     echo "  • Datasets: Add from Kaggle Datasets or /kaggle/input/"
     echo "  • Save outputs to: /kaggle/working/"
     echo "  • GPU time limit: 30 hours/week"
@@ -93,8 +94,7 @@ if [ "$KAGGLE" = true ]; then
     echo "🚀 Ready to train!"
     echo "   python deepfakebench/train.py --detector_path ./deepfakebench/config/detector/xception.yaml"
     echo ""
-    echo "Note: Ignore 'dopamine-rl' dependency warnings (not used by DeepfakeBench)
-    echo "   python deepfakebench/train.py --detector_path ./deepfakebench/config/detector/xception.yaml"
+    echo "Note: Ignore dependency warnings (not critical for DeepfakeBench)"
 fi
 
 echo "=========================================="
