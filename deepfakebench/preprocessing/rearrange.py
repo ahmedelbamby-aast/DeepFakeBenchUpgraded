@@ -4,6 +4,25 @@
 # description: Data pre-processing script for deepfake dataset.
 
 
+def _get_frames_or_videos_path(base_path):
+    """
+    Helper function to find either 'frames' or 'videos' directory.
+    Returns the full path to whichever exists, or raises FileNotFoundError.
+    """
+    frames_path = os.path.join(base_path, 'frames')
+    videos_path = os.path.join(base_path, 'videos')
+    
+    if os.path.exists(frames_path):
+        return frames_path, 'frames'
+    elif os.path.exists(videos_path):
+        return videos_path, 'videos'
+    else:
+        raise FileNotFoundError(
+            f"Neither 'frames' nor 'videos' directory found in {base_path}\n"
+            f"Please check your dataset structure."
+        )
+
+
 """
 After running this code, it will generates a json file looks like the below structure for re-arrange data.
 
@@ -170,8 +189,9 @@ def generate_dataset_file(dataset_name, dataset_root_path, output_file_path, com
                     dataset_dict['FaceForensics++']['FF-real']['test'][compression_level] = {}
                     dataset_dict['FaceForensics++']['FF-real']['val'][compression_level] = {}
             
-                # Iterate over all videos
-                for video_path in os.scandir(os.path.join(dataset_path, 'original_sequences', 'youtube', compression_level, 'frames')):
+                # Iterate over all videos (check for both 'frames' and 'videos' dirs)
+                content_path, content_type = _get_frames_or_videos_path(os.path.join(dataset_path, 'original_sequences', 'youtube', compression_level))
+                for video_path in os.scandir(content_path):
                     if video_path.is_dir():
                         video_name = video_path.name
                         mode = video_to_mode[video_name]
@@ -189,8 +209,9 @@ def generate_dataset_file(dataset_name, dataset_root_path, output_file_path, com
                     dataset_dict['FaceForensics++']['DFD_real']['train'][compression_level] = {}
                     dataset_dict['FaceForensics++']['DFD_real']['test'][compression_level] = {}
                     dataset_dict['FaceForensics++']['DFD_real']['val'][compression_level] = {}
-                # Iterate over all videos
-                for video_path in os.scandir(os.path.join(dataset_path, 'original_sequences', 'actors', compression_level, 'frames')):
+                # Iterate over all videos (check for both 'frames' and 'videos' dirs)
+                content_path, content_type = _get_frames_or_videos_path(os.path.join(dataset_path, 'original_sequences', 'actors', compression_level))
+                for video_path in os.scandir(content_path):
                     if video_path.is_dir():
                         video_name = video_path.name
                         frame_paths = [os.path.join(video_path, frame.name) for frame in os.scandir(video_path)]
@@ -214,9 +235,9 @@ def generate_dataset_file(dataset_name, dataset_root_path, output_file_path, com
                             dataset_dict['FaceForensics++'][ff_dict[label]]['train'][compression_level] = {}
                             dataset_dict['FaceForensics++'][ff_dict[label]]['test'][compression_level] = {}
                             dataset_dict['FaceForensics++'][ff_dict[label]]['val'][compression_level] = {}
-                            # Iterate over all videos
-
-                            for video_path in os.scandir(os.path.join(dataset_path, 'manipulated_sequences', label, compression_level, 'frames')):
+                            # Iterate over all videos (check for both 'frames' and 'videos' dirs)
+                            content_path, content_type = _get_frames_or_videos_path(os.path.join(dataset_path, 'manipulated_sequences', label, compression_level))
+                            for video_path in os.scandir(content_path):
                                 if video_path.is_dir():
                                     video_name = video_path.name
                                     frame_paths = [os.path.join(video_path, frame.name) for frame in os.scandir(video_path)]
