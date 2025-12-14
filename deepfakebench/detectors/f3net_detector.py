@@ -45,7 +45,12 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from torch.nn import DataParallel
-from torch.utils.tensorboard import SummaryWriter
+try:
+    from torch.utils.tensorboard import SummaryWriter
+    TENSORBOARD_AVAILABLE = True
+except ImportError:
+    SummaryWriter = None
+    TENSORBOARD_AVAILABLE = False
 
 from deepfakebench.metrics.base_metrics_class import calculate_metrics_for_train
 

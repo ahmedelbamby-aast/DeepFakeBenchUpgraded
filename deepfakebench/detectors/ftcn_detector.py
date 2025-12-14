@@ -98,7 +98,12 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from torch.nn import DataParallel
-from torch.utils.tensorboard import SummaryWriter
+try:
+    from torch.utils.tensorboard import SummaryWriter
+    TENSORBOARD_AVAILABLE = True
+except ImportError:
+    SummaryWriter = None
+    TENSORBOARD_AVAILABLE = False
 
 from deepfakebench.metrics.base_metrics_class import calculate_metrics_for_train
 
@@ -332,12 +337,9 @@ class TransformerHead(nn.Module):
         return x, feat
 
 
-parameters = [parameter for parameter in signature(nn.Conv3d).parameters]
-print(parameters)
-
+# Debug variables for temporal_only_conv function
 spatial_count = 0
 keep_stride_count = 0
-print(f"spatial_count={spatial_count} keep_stride_count={keep_stride_count}")
 
 
 def temporal_only_conv(module, name, removed, stride_removed=0):

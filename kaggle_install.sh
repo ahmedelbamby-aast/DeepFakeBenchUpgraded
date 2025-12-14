@@ -59,6 +59,10 @@ pip install -q --no-deps scikit-learn 2>&1 | grep -v "dependency resolver" || tr
 echo "Installing CLIP..."
 pip install -q --no-deps git+https://github.com/openai/CLIP.git 2>&1 | grep -v "dependency resolver" || true
 
+# Note: tensorboard is optional and not installed by default
+# Uncomment the next line if you need training visualization:
+# pip install -q tensorboard 2>&1 | grep -v "dependency resolver" || true
+
 echo ""
 echo "=========================================="
 echo "✅ Installation Complete!"

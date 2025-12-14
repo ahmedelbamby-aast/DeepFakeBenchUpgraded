@@ -22,7 +22,7 @@ tokenizers
 regex
 
 # Training & Logging
-tensorboard
+# tensorboard  # Optional - only needed for training visualization
 tqdm
 
 # Utilities
