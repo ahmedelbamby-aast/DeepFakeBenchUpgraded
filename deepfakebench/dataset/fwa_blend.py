@@ -31,25 +31,36 @@ from torch.utils import data
 from torchvision import transforms as T
 import torchvision
 
-from dataset.utils.face_blend import *
-from dataset.utils.face_align import get_align_mat_new
-from dataset.utils.color_transfer import color_transfer
-from dataset.utils.faceswap_utils import blendImages as alpha_blend_fea
-from dataset.utils.faceswap_utils import AlphaBlend as alpha_blend
-from dataset.utils.face_aug import aug_one_im, change_res
-from dataset.utils.image_ae import get_pretraiend_ae
-from dataset.utils.warp import warp_mask
-from dataset.utils import faceswap
+from deepfakebench.dataset.utils.face_blend import *
+from deepfakebench.dataset.utils.face_align import get_align_mat_new
+from deepfakebench.dataset.utils.color_transfer import color_transfer
+from deepfakebench.dataset.utils.faceswap_utils import blendImages as alpha_blend_fea
+from deepfakebench.dataset.utils.faceswap_utils import AlphaBlend as alpha_blend
+from deepfakebench.dataset.utils.face_aug import aug_one_im, change_res
+from deepfakebench.dataset.utils.image_ae import get_pretraiend_ae
+from deepfakebench.dataset.utils.warp import warp_mask
+from deepfakebench.dataset.utils import faceswap
 from scipy.ndimage.filters import gaussian_filter
 from skimage.transform import AffineTransform, warp
 
-from dataset.abstract_dataset import DeepfakeAbstractBaseDataset
+from deepfakebench.dataset.abstract_dataset import DeepfakeAbstractBaseDataset
 
 
-# Define face detector and predictor models
-face_detector = dlib.get_frontal_face_detector()
-predictor_path = 'preprocessing/dlib_tools/shape_predictor_81_face_landmarks.dat'
-face_predictor = dlib.shape_predictor(predictor_path)
+# Define face detector and predictor models (lazy initialization)
+face_detector = None
+face_predictor = None
+
+def _init_dlib_models():
+    global face_detector, face_predictor
+    if face_detector is None:
+        try:
+            import dlib
+            face_detector = dlib.get_frontal_face_detector()
+            predictor_path = 'preprocessing/dlib_tools/shape_predictor_81_face_landmarks.dat'
+            face_predictor = dlib.shape_predictor(predictor_path)
+        except Exception as e:
+            raise RuntimeError(f"Failed to initialize dlib models. Make sure dlib is installed and shape_predictor_81_face_landmarks.dat is available. Error: {e}")
+    return face_detector, face_predictor
 
 
 mean_face_x = np.array([
@@ -369,7 +380,8 @@ class FWABlendDataset(DeepfakeAbstractBaseDataset):
         im = np.array(self.load_rgb(img_path))
 
         # Get the alignment of the head
-        face_cache = align(im, face_detector, face_predictor)
+        detector, predictor = _init_dlib_models()
+        face_cache = align(im, detector, predictor)
 
         # Get the aligned face and landmarks
         aligned_im_head, aligned_shape = get_aligned_face_and_landmarks(im, face_cache)

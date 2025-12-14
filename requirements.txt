@@ -34,6 +34,7 @@ kornia
 iopath
 fvcore
 simplejson
+lmdb
 
 # Optional (may fail on some systems)
 # dlib==19.24.0  # Uncomment if needed for preprocessing

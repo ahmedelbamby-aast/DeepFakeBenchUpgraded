@@ -36,7 +36,7 @@ from sklearn import metrics
 from typing import Union
 from collections import defaultdict
 
-from dataset.iid_dataset import IIDDataset
+from deepfakebench.dataset.iid_dataset import IIDDataset
 from deepfakebench.detectors.utils.iid_api import FC_ddp,FC_ddp2
 import torch
 import torch.nn as nn

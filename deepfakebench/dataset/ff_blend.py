@@ -28,15 +28,15 @@ from torch.utils import data
 from torchvision import transforms as T
 import torchvision
 
-from dataset.utils.face_blend import *
-from dataset.utils.face_align import get_align_mat_new
-from dataset.utils.color_transfer import color_transfer
-from dataset.utils.faceswap_utils import blendImages as alpha_blend_fea
-from dataset.utils.faceswap_utils import AlphaBlend as alpha_blend
-from dataset.utils.face_aug import aug_one_im, change_res
-from dataset.utils.image_ae import get_pretraiend_ae
-from dataset.utils.warp import warp_mask
-from dataset.utils import faceswap
+from deepfakebench.dataset.utils.face_blend import *
+from deepfakebench.dataset.utils.face_align import get_align_mat_new
+from deepfakebench.dataset.utils.color_transfer import color_transfer
+from deepfakebench.dataset.utils.faceswap_utils import blendImages as alpha_blend_fea
+from deepfakebench.dataset.utils.faceswap_utils import AlphaBlend as alpha_blend
+from deepfakebench.dataset.utils.face_aug import aug_one_im, change_res
+from deepfakebench.dataset.utils.image_ae import get_pretraiend_ae
+from deepfakebench.dataset.utils.warp import warp_mask
+from deepfakebench.dataset.utils import faceswap
 from scipy.ndimage.filters import gaussian_filter
 
 

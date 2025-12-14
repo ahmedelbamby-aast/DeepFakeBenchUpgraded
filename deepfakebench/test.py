@@ -22,10 +22,10 @@ import torch.nn.functional as F
 import torch.utils.data
 import torch.optim as optim
 
-from dataset.abstract_dataset import DeepfakeAbstractBaseDataset
-from dataset.ff_blend import FFBlendDataset
-from dataset.fwa_blend import FWABlendDataset
-from dataset.pair_dataset import pairDataset
+from deepfakebench.dataset.abstract_dataset import DeepfakeAbstractBaseDataset
+from deepfakebench.dataset.ff_blend import FFBlendDataset
+from deepfakebench.dataset.fwa_blend import FWABlendDataset
+from deepfakebench.dataset.pair_dataset import pairDataset
 
 from deepfakebench.trainer.trainer import Trainer
 from deepfakebench.detectors import DETECTOR

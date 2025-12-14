@@ -9,7 +9,7 @@ The code is designed for scenarios such as disentanglement-based methods where i
 import torch
 import random
 import numpy as np
-from dataset.abstract_dataset import DeepfakeAbstractBaseDataset
+from deepfakebench.dataset.abstract_dataset import DeepfakeAbstractBaseDataset
 
 
 class pairDataset(DeepfakeAbstractBaseDataset):

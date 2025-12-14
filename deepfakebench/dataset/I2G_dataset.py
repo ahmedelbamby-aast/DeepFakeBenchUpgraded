@@ -17,9 +17,9 @@ from PIL import Image
 import sys
 import albumentations as A
 from torch.utils.data import DataLoader
-from dataset.utils.bi_online_generation import random_get_hull
-from dataset.abstract_dataset import DeepfakeAbstractBaseDataset
-from dataset.pair_dataset import pairDataset
+from deepfakebench.dataset.utils.bi_online_generation import random_get_hull
+from deepfakebench.dataset.abstract_dataset import DeepfakeAbstractBaseDataset
+from deepfakebench.dataset.pair_dataset import pairDataset
 import torch
 
 class RandomDownScale(A.core.transforms_interface.ImageOnlyTransform):

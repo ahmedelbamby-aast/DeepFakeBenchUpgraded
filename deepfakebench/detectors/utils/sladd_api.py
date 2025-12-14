@@ -12,10 +12,10 @@ from skimage.transform import PiecewiseAffineTransform, warp
 from torch.autograd import Variable
 from scipy.ndimage import binary_erosion, binary_dilation
 
-from dataset.pair_dataset import pairDataset
-from dataset.utils.color_transfer import color_transfer
-from dataset.utils.faceswap_utils_sladd import blendImages as alpha_blend_fea
-from dataset.utils import faceswap
+from deepfakebench.dataset.pair_dataset import pairDataset
+from deepfakebench.dataset.utils.color_transfer import color_transfer
+from deepfakebench.dataset.utils.faceswap_utils_sladd import blendImages as alpha_blend_fea
+from deepfakebench.dataset.utils import faceswap
 
 
 

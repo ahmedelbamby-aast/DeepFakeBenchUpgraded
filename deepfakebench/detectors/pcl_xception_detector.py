@@ -44,7 +44,7 @@ import torch.optim as optim
 from torch.nn import DataParallel
 from torch.utils.tensorboard import SummaryWriter
 
-from dataset.I2G_dataset import I2GDataset
+from deepfakebench.dataset.I2G_dataset import I2GDataset
 from deepfakebench.metrics.base_metrics_class import calculate_metrics_for_train
 
 from deepfakebench.detectors.base_detector import AbstractDetector

@@ -17,7 +17,7 @@ from PIL import Image, ImageDraw
 import numpy as np
 from torch.utils.data import DataLoader
 
-from dataset.abstract_dataset import DeepfakeAbstractBaseDataset
+from deepfakebench.dataset.abstract_dataset import DeepfakeAbstractBaseDataset
 
 class IIDDataset(DeepfakeAbstractBaseDataset):
     def __init__(self, config=None, mode='train'):

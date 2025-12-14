@@ -21,15 +21,18 @@ def fix_imports_in_file(filepath):
             (r'^from networks\.', 'from deepfakebench.networks.'),
             (r'^from loss\.', 'from deepfakebench.loss.'),
             (r'^from detectors\.', 'from deepfakebench.detectors.'),
+            (r'^from dataset\.', 'from deepfakebench.dataset.'),
             (r'^from detectors import', 'from deepfakebench.detectors import'),
             (r'^from networks import', 'from deepfakebench.networks import'),
             (r'^from loss import', 'from deepfakebench.loss import'),
             (r'^from trainer import', 'from deepfakebench.trainer import'),
+            (r'^from dataset import', 'from deepfakebench.dataset import'),
             (r'^import metrics\.', 'import deepfakebench.metrics.'),
             (r'^import trainer\.', 'import deepfakebench.trainer.'),
             (r'^import networks\.', 'import deepfakebench.networks.'),
             (r'^import loss\.', 'import deepfakebench.loss.'),
             (r'^import detectors\.', 'import deepfakebench.detectors.'),
+            (r'^import dataset\.', 'import deepfakebench.dataset.'),
         ]
         
         for pattern, replacement in patterns:

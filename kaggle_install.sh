@@ -51,6 +51,7 @@ echo "Installing additional utilities..."
 pip install -q --no-deps einops loralib kornia simplejson filterpy 2>&1 | grep -v "dependency resolver" || true
 pip install -q iopath 2>&1 | grep -v "dependency resolver" || true
 pip install -q fvcore 2>&1 | grep -v "dependency resolver" || true
+pip install -q lmdb 2>&1 | grep -v "dependency resolver" || true
 
 # CLIP
 echo "Installing CLIP..."

@@ -8,8 +8,8 @@ import os
 import random
 from PIL import Image
 from imgaug import augmenters as iaa
-from dataset.library.DeepFakeMask import dfl_full,facehull,components,extended
-from dataset.utils.attribution_mask import *
+from deepfakebench.dataset.library.DeepFakeMask import dfl_full,facehull,components,extended
+from deepfakebench.dataset.utils.attribution_mask import *
 import cv2
 import tqdm
 
