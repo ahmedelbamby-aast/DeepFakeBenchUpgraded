@@ -4,12 +4,17 @@ Complete guide to running DeepfakeBench on Kaggle notebooks with GPU support.
 
 ## Quick Start (2 Minutes Setup)
 
-### Method 1: One-Line Clone & Install
+### Method 1: Quick Clone & Install
 
-```bash
+**Cell 1: Clone Repository**
+```python
 !git clone https://github.com/ahmedelbamby-aast/DeepFakeBenchUpgraded.git
+```
+
+**Cell 2: Install**
+```python
 %cd DeepFakeBenchUpgraded
-!bash install.sh
+!bash kaggle_install.sh
 ```
 
 ### Method 2: Manual Step-by-Step
@@ -99,16 +104,18 @@ Edit detector config files in `training/config/detector/`:
 ## Example Kaggle Notebook Structure
 
 ```python
-# Cell 1: Clone & Install
+# Cell 1: Clone Repository
 !git clone https://github.com/ahmedelbamby-aast/DeepFakeBenchUpgraded.git
-%cd DeepFakeBenchUpgraded
-!bash install.sh
 
-# Cell 2: Setup Data
+# Cell 2: Install Dependencies
+%cd DeepFakeBenchUpgraded
+!bash kaggle_install.sh
+
+# Cell 3: Setup Data
 !mkdir -p datasets/rgb
 !ln -s /kaggle/input/your-dataset datasets/rgb/FaceForensics++
 
-# Cell 3: Import & Verify
+# Cell 4: Import & Verify
 import torch
 import sys
 sys.path.insert(0, 'training')
@@ -116,11 +123,11 @@ from detectors.xception_detector import XceptionDetector
 
 print(f"✓ GPU: {torch.cuda.get_device_name(0)}")
 
-# Cell 4: Train
+# Cell 5: Train
 !python training/train.py \
     --detector_path ./training/config/detector/xception.yaml
 
-# Cell 5: Evaluate
+# Cell 6: Evaluate
 !python training/test.py \
     --detector_path ./training/config/detector/xception.yaml \
     --weights_path path/to/checkpoint.pth
