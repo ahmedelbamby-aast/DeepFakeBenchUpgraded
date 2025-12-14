@@ -192,32 +192,47 @@ def generate_dataset_file(dataset_name, dataset_root_path, output_file_path, com
                 # Iterate over all videos (check for both 'frames' and 'videos' dirs)
                 content_path, content_type = _get_frames_or_videos_path(os.path.join(dataset_path, 'original_sequences', 'youtube', compression_level))
                 for video_path in os.scandir(content_path):
+                    # Handle both directory structure (frames in subdirs) and video files directly
                     if video_path.is_dir():
                         video_name = video_path.name
-                        mode = video_to_mode[video_name]
-                        frame_paths = [os.path.join(video_path, frame.name) for frame in os.scandir(video_path)]
-                        dataset_dict['FaceForensics++']['FF-real'][mode][compression_level][video_name] = {'label': ff_dict[label], 'frames': frame_paths}
+                        if video_name in video_to_mode:
+                            mode = video_to_mode[video_name]
+                            frame_paths = [os.path.join(video_path, frame.name) for frame in os.scandir(video_path)]
+                            dataset_dict['FaceForensics++']['FF-real'][mode][compression_level][video_name] = {'label': ff_dict[label], 'frames': frame_paths}
+                    elif video_path.is_file() and video_path.name.endswith(('.mp4', '.avi')):
+                        # Handle video files directly (not extracted to frames yet)
+                        video_name = os.path.splitext(video_path.name)[0]
+                        if video_name in video_to_mode:
+                            mode = video_to_mode[video_name]
+                            # Store the video file path instead of frame paths
+                            dataset_dict['FaceForensics++']['FF-real'][mode][compression_level][video_name] = {'label': ff_dict[label], 'frames': [video_path.path]}
                         
             label = 'DFD_Real'  
-            # Same operations for DeepfakeDetection real dataset
+            # Same operations for DeepfakeDetection real dataset (optional - may not exist)
             dataset_dict['FaceForensics++']['DFD_real']['train'] = {}
             dataset_dict['FaceForensics++']['DFD_real']['test'] = {}
             dataset_dict['FaceForensics++']['DFD_real']['val'] = {}
-            for compression_level in os.scandir(os.path.join(dataset_path, 'original_sequences', 'actors')):
-                if compression_level.is_dir() and compression_level.name in ["c23", "c40", "raw"]:
-                    compression_level = compression_level.name
-                    dataset_dict['FaceForensics++']['DFD_real']['train'][compression_level] = {}
-                    dataset_dict['FaceForensics++']['DFD_real']['test'][compression_level] = {}
-                    dataset_dict['FaceForensics++']['DFD_real']['val'][compression_level] = {}
-                # Iterate over all videos (check for both 'frames' and 'videos' dirs)
-                content_path, content_type = _get_frames_or_videos_path(os.path.join(dataset_path, 'original_sequences', 'actors', compression_level))
-                for video_path in os.scandir(content_path):
-                    if video_path.is_dir():
-                        video_name = video_path.name
-                        frame_paths = [os.path.join(video_path, frame.name) for frame in os.scandir(video_path)]
-                        dataset_dict['FaceForensics++']['DFD_real']['train'][compression_level][video_name] = {'label': ff_dict[label], 'frames': frame_paths}
-                        dataset_dict['FaceForensics++']['DFD_real']['test'][compression_level][video_name] = {'label': ff_dict[label], 'frames': frame_paths}
-                        dataset_dict['FaceForensics++']['DFD_real']['val'][compression_level][video_name] = {'label': ff_dict[label], 'frames': frame_paths}
+            
+            actors_path = os.path.join(dataset_path, 'original_sequences', 'actors')
+            if os.path.exists(actors_path):
+                print(f"Processing DFD_real dataset from actors...")
+                for compression_level in os.scandir(actors_path):
+                    if compression_level.is_dir() and compression_level.name in ["c23", "c40", "raw"]:
+                        compression_level = compression_level.name
+                        dataset_dict['FaceForensics++']['DFD_real']['train'][compression_level] = {}
+                        dataset_dict['FaceForensics++']['DFD_real']['test'][compression_level] = {}
+                        dataset_dict['FaceForensics++']['DFD_real']['val'][compression_level] = {}
+                    # Iterate over all videos (check for both 'frames' and 'videos' dirs)
+                    content_path, content_type = _get_frames_or_videos_path(os.path.join(dataset_path, 'original_sequences', 'actors', compression_level))
+                    for video_path in os.scandir(content_path):
+                        if video_path.is_dir():
+                            video_name = video_path.name
+                            frame_paths = [os.path.join(video_path, frame.name) for frame in os.scandir(video_path)]
+                            dataset_dict['FaceForensics++']['DFD_real']['train'][compression_level][video_name] = {'label': ff_dict[label], 'frames': frame_paths}
+                            dataset_dict['FaceForensics++']['DFD_real']['test'][compression_level][video_name] = {'label': ff_dict[label], 'frames': frame_paths}
+                            dataset_dict['FaceForensics++']['DFD_real']['val'][compression_level][video_name] = {'label': ff_dict[label], 'frames': frame_paths}
+            else:
+                print(f"⚠ Skipping DFD_real dataset - 'actors' directory not found in {dataset_path}/original_sequences/")
         # FaceForensics++ fake datasets
         if os.path.isdir(os.path.join(dataset_path, 'manipulated_sequences')):
             for label_dir in os.scandir(os.path.join(dataset_path, 'manipulated_sequences')):
@@ -241,6 +256,12 @@ def generate_dataset_file(dataset_name, dataset_root_path, output_file_path, com
                                 if video_path.is_dir():
                                     video_name = video_path.name
                                     frame_paths = [os.path.join(video_path, frame.name) for frame in os.scandir(video_path)]
+                                elif video_path.is_file() and video_path.name.endswith(('.mp4', '.avi')):
+                                    # Handle video files directly
+                                    video_name = os.path.splitext(video_path.name)[0]
+                                    frame_paths = [video_path.path]
+                                else:
+                                    continue
                                     if label != 'FaceShifter':
                                         mask_paths = os.path.join(dataset_path, 'manipulated_sequences', label, 'c23','masks', video_name)
                                         # mask is all the same for all compression levels
