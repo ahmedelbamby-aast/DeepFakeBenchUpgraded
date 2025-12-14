@@ -37,7 +37,7 @@ from typing import Union
 from collections import defaultdict
 
 from dataset.iid_dataset import IIDDataset
-from detectors.utils.iid_api import FC_ddp,FC_ddp2
+from deepfakebench.detectors.utils.iid_api import FC_ddp,FC_ddp2
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -45,13 +45,13 @@ import torch.optim as optim
 from torch.nn import DataParallel
 from torch.utils.tensorboard import SummaryWriter
 
-from metrics.base_metrics_class import calculate_metrics_for_train
+from deepfakebench.metrics.base_metrics_class import calculate_metrics_for_train
 from deepfakebench.networks.iresnet_iid import iresnet50
 
-from detectors.base_detector import AbstractDetector
-from detectors import DETECTOR
-from networks import BACKBONE
-from loss import LOSSFUNC
+from deepfakebench.detectors.base_detector import AbstractDetector
+from deepfakebench.detectors import DETECTOR
+from deepfakebench.networks import BACKBONE
+from deepfakebench.loss import LOSSFUNC
 from .utils.iid_api import l2_norm
 
 logger = logging.getLogger(__name__)

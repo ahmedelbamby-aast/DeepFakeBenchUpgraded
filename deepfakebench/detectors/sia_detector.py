@@ -31,10 +31,10 @@ import logging
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from detectors import DETECTOR
-from loss import LOSSFUNC
-from metrics.base_metrics_class import calculate_metrics_for_train
-from networks import BACKBONE
+from deepfakebench.detectors import DETECTOR
+from deepfakebench.loss import LOSSFUNC
+from deepfakebench.metrics.base_metrics_class import calculate_metrics_for_train
+from deepfakebench.networks import BACKBONE
 
 from .base_detector import AbstractDetector
 

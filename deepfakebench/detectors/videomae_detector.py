@@ -40,11 +40,11 @@ import torch.optim as optim
 from torch.nn import DataParallel
 from torch.utils.tensorboard import SummaryWriter
 
-from metrics.base_metrics_class import calculate_metrics_for_train
+from deepfakebench.metrics.base_metrics_class import calculate_metrics_for_train
 
 from .base_detector import AbstractDetector
-from detectors import DETECTOR
-from loss import LOSSFUNC
+from deepfakebench.detectors import DETECTOR
+from deepfakebench.loss import LOSSFUNC
 
 import loralib as lora
 

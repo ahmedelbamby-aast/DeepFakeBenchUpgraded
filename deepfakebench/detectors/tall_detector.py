@@ -31,10 +31,10 @@ import math
 import torch
 import torch.nn as nn
 import torch.utils.checkpoint as checkpoint
-from detectors import DETECTOR
+from deepfakebench.detectors import DETECTOR
 from einops import rearrange
-from loss import LOSSFUNC
-from metrics.base_metrics_class import calculate_metrics_for_train
+from deepfakebench.loss import LOSSFUNC
+from deepfakebench.metrics.base_metrics_class import calculate_metrics_for_train
 from timm.data import IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD
 from timm.models.layers import DropPath, to_2tuple, trunc_normal_
 from torch.hub import load_state_dict_from_url

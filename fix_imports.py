@@ -16,13 +16,20 @@ def fix_imports_in_file(filepath):
         # Fix patterns - only if not already using deepfakebench prefix
         patterns = [
             (r'^from metrics\.registry import', 'from deepfakebench.metrics.registry import'),
+            (r'^from metrics\.base_metrics_class import', 'from deepfakebench.metrics.base_metrics_class import'),
             (r'^from trainer\.', 'from deepfakebench.trainer.'),
             (r'^from networks\.', 'from deepfakebench.networks.'),
             (r'^from loss\.', 'from deepfakebench.loss.'),
+            (r'^from detectors\.', 'from deepfakebench.detectors.'),
+            (r'^from detectors import', 'from deepfakebench.detectors import'),
+            (r'^from networks import', 'from deepfakebench.networks import'),
+            (r'^from loss import', 'from deepfakebench.loss import'),
+            (r'^from trainer import', 'from deepfakebench.trainer import'),
             (r'^import metrics\.', 'import deepfakebench.metrics.'),
             (r'^import trainer\.', 'import deepfakebench.trainer.'),
             (r'^import networks\.', 'import deepfakebench.networks.'),
             (r'^import loss\.', 'import deepfakebench.loss.'),
+            (r'^import detectors\.', 'import deepfakebench.detectors.'),
         ]
         
         for pattern, replacement in patterns:

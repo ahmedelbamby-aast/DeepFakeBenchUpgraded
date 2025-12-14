@@ -44,15 +44,15 @@ from collections import defaultdict
 from efficientnet_pytorch import EfficientNet
 from deepfakebench.networks.iresnet import iresnet100
 from deepfakebench.networks.xception import Xception
-from detectors import DETECTOR
+from deepfakebench.detectors import DETECTOR
 from sklearn import metrics
-from metrics.base_metrics_class import calculate_metrics_for_train
+from deepfakebench.metrics.base_metrics_class import calculate_metrics_for_train
 from .base_detector import AbstractDetector
 
 from .base_detector import AbstractDetector
-from detectors import DETECTOR
-from networks import BACKBONE
-from loss import LOSSFUNC
+from deepfakebench.detectors import DETECTOR
+from deepfakebench.networks import BACKBONE
+from deepfakebench.loss import LOSSFUNC
 
 
 device = "cuda" if torch.cuda.is_available() else "cpu"

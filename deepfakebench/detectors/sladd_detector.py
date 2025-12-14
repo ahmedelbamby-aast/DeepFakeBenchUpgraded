@@ -44,13 +44,13 @@ from torch.nn import DataParallel
 from torch.utils.tensorboard import SummaryWriter
 
 from dataset.pair_dataset import pairDataset
-from metrics.base_metrics_class import calculate_metrics_for_train
+from deepfakebench.metrics.base_metrics_class import calculate_metrics_for_train
 
 
-from detectors.base_detector import AbstractDetector
-from detectors import DETECTOR
-from networks import BACKBONE
-from loss import LOSSFUNC
+from deepfakebench.detectors.base_detector import AbstractDetector
+from deepfakebench.detectors import DETECTOR
+from deepfakebench.networks import BACKBONE
+from deepfakebench.loss import LOSSFUNC
 from .utils.sladd_api import synthesizer
 
 logger = logging.getLogger(__name__)

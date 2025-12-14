@@ -30,7 +30,7 @@ from optimizor.SAM import SAM
 from optimizor.LinearLR import LinearDecayLR
 
 from deepfakebench.trainer.trainer import Trainer
-from detectors import DETECTOR
+from deepfakebench.detectors import DETECTOR
 from dataset import *
 from metrics.utils import parse_metric_for_print
 from logger import create_logger, RankFilter

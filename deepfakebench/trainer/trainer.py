@@ -24,7 +24,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torch.nn import DataParallel
 from torch.utils.tensorboard import SummaryWriter
-from metrics.base_metrics_class import Recorder
+from deepfakebench.metrics.base_metrics_class import Recorder
 from torch.optim.swa_utils import AveragedModel, SWALR
 from torch import distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP

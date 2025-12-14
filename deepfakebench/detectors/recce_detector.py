@@ -40,13 +40,13 @@ from torch.nn import DataParallel
 from torch.utils.tensorboard import SummaryWriter
 import numpy as np
 import argparse
-from metrics.base_metrics_class import calculate_metrics_for_train
+from deepfakebench.metrics.base_metrics_class import calculate_metrics_for_train
 
 from deepfakebench.networks.xception import SeparableConv2d, Block
 from .base_detector import AbstractDetector
-from detectors import DETECTOR
-from networks import BACKBONE
-from loss import LOSSFUNC
+from deepfakebench.detectors import DETECTOR
+from deepfakebench.networks import BACKBONE
+from deepfakebench.loss import LOSSFUNC
 import logging
 
 logger = logging.getLogger(__name__)

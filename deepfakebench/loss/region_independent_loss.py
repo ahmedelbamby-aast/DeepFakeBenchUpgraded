@@ -1,6 +1,6 @@
 import torch
 import torch.nn.functional as F
-from detectors.multi_attention_detector import AttentionPooling
+from deepfakebench.detectors.multi_attention_detector import AttentionPooling
 from .abstract_loss_func import AbstractLossClass
 from deepfakebench.metrics.registry import LOSSFUNC
 
