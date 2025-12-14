@@ -222,12 +222,16 @@ config = {
 ### Dataset Preprocessing
 
 ```python
-from preprocessing.rearrange import rearrange_dataset
+from deepfakebench.preprocessing.rearrange import generate_dataset_file
+import os
 
-rearrange_dataset(
+os.makedirs('./deepfakebench/preprocessing/dataset_json', exist_ok=True)
+
+generate_dataset_file(
     dataset_name='FaceForensics++',
-    dataset_root='/kaggle/input/.../rgb/FaceForensics++',
-    output_dir='./preprocessing/dataset_json'
+    dataset_root_path='/kaggle/input/.../rgb/FaceForensics++',
+    output_file_path='./deepfakebench/preprocessing/dataset_json/FaceForensics++.json',
+    compression_level='c23'
 )
 ```
 

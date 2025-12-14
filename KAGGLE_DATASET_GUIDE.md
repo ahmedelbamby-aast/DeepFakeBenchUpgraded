@@ -75,17 +75,22 @@ Your dataset uses **c23** (compression level 23). The system supports:
 import sys
 sys.path.insert(0, '/kaggle/working/DeepFakeBenchUpgraded')
 
-from preprocessing.rearrange import rearrange_dataset
+from deepfakebench.preprocessing.rearrange import generate_dataset_file
+import os
+
+# Create output directory
+os.makedirs('./deepfakebench/preprocessing/dataset_json', exist_ok=True)
 
 # Generate JSON mapping for your dataset
-rearrange_dataset(
+generate_dataset_file(
     dataset_name='FaceForensics++',
-    dataset_root='/kaggle/input/faceforensicsplusplus-c23-deepfakebench-structure/rgb/FaceForensics++',
-    output_dir='./preprocessing/dataset_json'
+    dataset_root_path='/kaggle/input/faceforensicsplusplus-c23-deepfakebench-structure/rgb/FaceForensics++',
+    output_file_path='./deepfakebench/preprocessing/dataset_json/FaceForensics++.json',
+    compression_level='c23'
 )
 ```
 
-This will create: `preprocessing/dataset_json/FaceForensics++.json`
+This will create: `deepfakebench/preprocessing/dataset_json/FaceForensics++.json`
 
 ### Step 2: Update Configuration
 
@@ -251,7 +256,7 @@ config['test_dataset'] = 'FF-DF'  # Test generalization
 For faster loading, convert to LMDB format:
 
 ```python
-from preprocessing.dataset2lmdb import convert_to_lmdb
+from deepfakebench.preprocessing.dataset2lmdb import convert_to_lmdb
 
 convert_to_lmdb(
     json_path='./preprocessing/dataset_json/FaceForensics++.json',
