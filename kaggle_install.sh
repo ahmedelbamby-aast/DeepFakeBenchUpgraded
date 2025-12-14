@@ -17,36 +17,43 @@ else
 fi
 
 # Check GPU
+echo ""
 if command -v nvidia-smi &> /dev/null; then
     echo "✓ GPU detected:"
-    nvidia-smi --query-gpu=name,memory.total --format=csv,noheader
+    nvidia-smi --query-gpu=name,memory.total --format=csv,noheader 2>/dev/null || echo "  GPU Available (details unavailable)"
 else
     echo "⚠ No GPU detected"
+    if [ "$KAGGLE" = true ]; then
+        echo "  → Make sure GPU is enabled in Notebook Settings (right panel)"
+        echo "  → Go to: Settings → Accelerator → GPU T4 x2"
+    fi
 fi
 
 echo ""
 echo "Installing core packages..."
 
 # Core packages (many pre-installed on Kaggle)
-pip install -q opencv-python==4.6.0.66
-pip install -q scikit-image==0.19.3
-pip install -q scikit-learn==1.0.2
-pip install -q albumentations==1.1.0
-pip install -q efficientnet-pytorch==0.7.1
-pip install -q timm==0.6.13
-pip install -q tensorboard==2.10.1
+echo "This may take 2-3 minutes..."
+pip install -q opencv-python==4.6.0.66 2>&1 | grep -v "dependency resolver" | grep -v "dopamine-rl" || true
+pip install -q scikit-image==0.19.3 2>&1 | grep -v "dependency resolver" || true
+pip install -q scikit-learn==1.0.2 2>&1 | grep -v "dependency resolver" || true
+pip install -q albumentations==1.1.0 2>&1 | grep -v "dependency resolver" || true
+pip install -q efficientnet-pytorch==0.7.1 2>&1 | grep -v "dependency resolver" || true
+pip install -q timm==0.6.13 2>&1 | grep -v "dependency resolver" || true
+pip install -q tensorboard==2.10.1 2>&1 | grep -v "dependency resolver" || true
 
 # Transformers (for CLIP detectors)
-echo "Installing transformers..."
-pip install -q transformers==4.30.2 --no-deps
-pip install -q "tokenizers<0.14,>=0.11" --no-build-isolation
-pip install -q regex
+echo "Installing transformers..." 2>&1 | grep -v "dependency resolver" || true
+pip install -q "tokenizers<0.14,>=0.11" --no-build-isolation 2>&1 | grep -v "dependency resolver" || true
+pip install -q regex 2>&1 | grep -v "dependency resolver" || true
 
 # Additional utilities
-pip install -q einops loralib kornia fvcore simplejson filterpy
+echo "Installing additional utilities..."
+pip install -q einops loralib kornia fvcore simplejson filterpy 2>&1 | grep -v "dependency resolver" || true
 
 # CLIP
 echo "Installing CLIP..."
+pip install -q git+https://github.com/openai/CLIP.git 2>&1 | grep -v "dependency resolver" || true
 pip install -q git+https://github.com/openai/CLIP.git
 
 echo ""
@@ -78,12 +85,15 @@ EOF
 
 if [ "$KAGGLE" = true ]; then
     echo ""
-    echo "📝 Kaggle Tips:"
+    echo "📝 KEnable GPU: Settings → Accelerator → GPU T4 x2"
     echo "  • Datasets: Add from Kaggle Datasets or /kaggle/input/"
     echo "  • Save outputs to: /kaggle/working/"
     echo "  • GPU time limit: 30 hours/week"
     echo ""
     echo "🚀 Ready to train!"
+    echo "   python training/train.py --detector_path ./training/config/detector/xception.yaml"
+    echo ""
+    echo "Note: Ignore 'dopamine-rl' dependency warnings (not used by DeepfakeBench)
     echo "   python training/train.py --detector_path ./training/config/detector/xception.yaml"
 fi
 

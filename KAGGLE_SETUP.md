@@ -4,6 +4,11 @@ Complete guide to running DeepfakeBench on Kaggle notebooks with GPU support.
 
 ## Quick Start (2 Minutes Setup)
 
+> **⚠️ IMPORTANT:** Enable GPU in your Kaggle notebook first!
+> - Go to notebook Settings (right panel)
+> - Accelerator → Select **GPU T4 x2**
+> - Click **Save**
+
 ### Method 1: Quick Clone & Install
 
 **Cell 1: Clone Repository**
@@ -45,7 +50,11 @@ sys.path.insert(0, 'training')
 
 print(f"✓ PyTorch: {torch.__version__}")
 print(f"✓ CUDA Available: {torch.cuda.is_available()}")
-print(f"✓ GPU: {torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'None'}")
+if torch.cuda.is_available():
+    print(f"✓ GPU: {torch.cuda.get_device_name(0)}")
+    print(f"✓ GPU Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
+else:
+    print("⚠️ GPU not detected - Enable in Settings → Accelerator → GPU T4 x2")
 
 # Test import
 from detectors.xception_detector import XceptionDetector
