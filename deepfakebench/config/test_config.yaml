@@ -2,7 +2,7 @@
 lmdb: True
 rgb_dir: './datasets/rgb'
 lmdb_dir:  './datasets/lmdb'
-dataset_json_folder: './preprocessing/dataset_json'
+dataset_json_folder: './deepfakebench/preprocessing/dataset_json'
 label_dict:
   # DFD
   DFD_fake: 1
