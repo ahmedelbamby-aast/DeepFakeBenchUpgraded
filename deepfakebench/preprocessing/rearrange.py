@@ -316,9 +316,14 @@ def generate_dataset_file(dataset_name, dataset_root_path, output_file_path, com
 
         # if FaceForensics++, based on label and generate the json
         if dataset_name == 'FaceForensics++':
+            # Get the directory from output_file_path for individual label files
+            output_dir = os.path.dirname(output_file_path) if output_file_path.endswith('.json') else output_file_path
+            os.makedirs(output_dir, exist_ok=True)
+            
             for label, value in dataset_dict['FaceForensics++'].items():
                 if label != 'FF-real':
-                    with open(os.path.join(output_file_path,f'{label}.json'), 'w') as f:
+                    label_file = os.path.join(output_dir, f'{label}.json')
+                    with open(label_file, 'w') as f:
                         data = {label: {'FF-real': dataset_dict['FaceForensics++']['FF-real'],
                                         label: value,
                                         }}
@@ -563,11 +568,17 @@ def generate_dataset_file(dataset_name, dataset_root_path, output_file_path, com
                         dataset_dict[dataset_name][label]['val'][video_name] = {'label': label, 'frames': frame_paths}
 
     # Convert the dataset dictionary to JSON format and save to file
-    output_file_path = os.path.join(output_file_path, dataset_name + '.json')
-    with open(output_file_path, 'w') as f:
+    # If output_file_path already ends with .json, use it as is; otherwise, append dataset name
+    if output_file_path.endswith('.json'):
+        final_output_path = output_file_path
+    else:
+        os.makedirs(output_file_path, exist_ok=True)
+        final_output_path = os.path.join(output_file_path, dataset_name + '.json')
+    
+    with open(final_output_path, 'w') as f:
         json.dump(dataset_dict, f)
     # print the successfully generated dataset dictionary
-    print(f"{dataset_name}.json generated successfully.")
+    print(f"{dataset_name}.json generated successfully at {final_output_path}")
 
 if __name__ == '__main__':
     # from config.yaml load parameters
