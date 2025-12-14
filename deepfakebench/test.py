@@ -149,7 +149,10 @@ def main():
     # parse options and load config
     with open(args.detector_path, 'r') as f:
         config = yaml.safe_load(f)
-    with open('./training/config/test_config.yaml', 'r') as f:
+    # Get config relative to this file's location
+    config_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config')
+    test_config_path = os.path.join(config_dir, 'test_config.yaml')
+    with open(test_config_path, 'r') as f:
         config2 = yaml.safe_load(f)
     config.update(config2)
     if 'label_dict' in config:

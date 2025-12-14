@@ -108,9 +108,11 @@ class YZYDataset(DeepfakeAbstractBaseDataset):
 
 
 if __name__ == '__main__':
-    with open('./training/config/detector/sbi.yaml', 'r') as f:
+    # Get config relative to the project root
+    config_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'config')
+    with open(os.path.join(config_dir, 'detector', 'sbi.yaml'), 'r') as f:
         config = yaml.safe_load(f)
-    with open('./training/config/train_config.yaml', 'r') as f:
+    with open(os.path.join(config_dir, 'train_config.yaml'), 'r') as f:
         config2 = yaml.safe_load(f)
     config2['data_manner'] = 'lmdb'
     config['dataset_json_folder'] = '/Youtu_Pangu_Security_Public/youtu-pangu-public/zhiyuanyan/DeepfakeBenchv2/preprocessing/dataset_json'

@@ -89,7 +89,9 @@ class FaceXrayDetector(AbstractDetector):
         self.loss_func = self.build_loss(config)
     
     def build_backbone(self, config):
-        cfg_path = './training/config/backbone/cls_hrnet_w48.yaml'
+        # Get config relative to the project root
+        config_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'config')
+        cfg_path = os.path.join(config_dir, 'backbone', 'cls_hrnet_w48.yaml')
         # parse options and load config
         with open(cfg_path, 'r') as f:
             cfg_config = yaml.safe_load(f)

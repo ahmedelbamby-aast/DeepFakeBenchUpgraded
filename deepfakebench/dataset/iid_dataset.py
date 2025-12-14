@@ -96,11 +96,13 @@ def draw_landmark(img,landmark):
 
 
 if __name__ == '__main__':
-    detector_path = r"./training/config/detector/xception.yaml"
+    # Get config relative to the project root
+    config_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'config')
+    detector_path = os.path.join(config_dir, 'detector', 'xception.yaml')
     # weights_path = "./ckpts/xception/CDFv2/tb_v1/ov.pth"
     with open(detector_path, 'r') as f:
         config = yaml.safe_load(f)
-    with open('./training/config/train_config.yaml', 'r') as f:
+    with open(os.path.join(config_dir, 'train_config.yaml'), 'r') as f:
         config2 = yaml.safe_load(f)
     config2['data_manner'] = 'lmdb'
     config['dataset_json_folder'] = 'preprocessing/dataset_json_v3'

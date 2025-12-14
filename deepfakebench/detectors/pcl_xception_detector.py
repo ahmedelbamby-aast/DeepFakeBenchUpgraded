@@ -238,9 +238,11 @@ class PCLXceptionDetector(AbstractDetector):
 
 
 if __name__ == '__main__':
-    with open(r'H:\code\DeepfakeBench\training\config\detector\pcl_xception.yaml', 'r') as f:
+    # Get config relative to the project root
+    config_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'config')
+    with open(os.path.join(config_dir, 'detector', 'pcl_xception.yaml'), 'r') as f:
         config = yaml.safe_load(f)
-    with open('./training/config/train_config.yaml', 'r') as f:
+    with open(os.path.join(config_dir, 'train_config.yaml'), 'r') as f:
         config2 = yaml.safe_load(f)
     config.update(config2)
     if config['manualSeed'] is None:

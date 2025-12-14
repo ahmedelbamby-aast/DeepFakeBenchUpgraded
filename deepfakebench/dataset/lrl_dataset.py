@@ -114,7 +114,9 @@ class LRLDataset(DeepfakeAbstractBaseDataset):
 if __name__ == '__main__':
     with open(r'H:\code\DeepfakeBench\training\config\detector\lrl_effnb4.yaml', 'r') as f:
         config = yaml.safe_load(f)
-    with open(r'H:\code\DeepfakeBench\training\config\train_config.yaml', 'r') as f:
+    # Get config relative to the project root
+    config_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'config', 'train_config.yaml')
+    with open(config_path, 'r') as f:
         config2 = yaml.safe_load(f)
     random.seed(config['manualSeed'])
     torch.manual_seed(config['manualSeed'])
