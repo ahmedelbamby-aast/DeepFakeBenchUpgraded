@@ -1,0 +1,81 @@
+# ============================================
+# DeepFakeBench Conda Environment - CPU Only
+# ============================================
+# 
+# Usage:
+#   conda env create -f environment-cpu.yml
+#   conda activate deepfakebench-cpu
+#
+# This environment is for systems without NVIDIA GPU
+# ============================================
+
+name: deepfakebench-cpu
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+
+dependencies:
+  # Python
+  - python>=3.8,<3.12
+  
+  # ============================================
+  # Scientific Computing
+  # ============================================
+  - numpy>=1.21.6,<2.0
+  - scipy>=1.7.3
+  - pandas>=1.3.5
+  
+  # ============================================
+  # Image Processing
+  # ============================================
+  - pillow>=9.0.1
+  - opencv>=4.6.0
+  - scikit-image>=0.19.3
+  - scikit-learn>=1.0.2
+  - imageio>=2.9.0
+  
+  # ============================================
+  # PyTorch (CPU Only)
+  # ============================================
+  - pytorch>=2.0.0
+  - torchvision>=0.15.0
+  - torchaudio>=2.0.0
+  - cpuonly
+  
+  # ============================================
+  # Training & Logging
+  # ============================================
+  - tensorboard>=2.10.1
+  - tqdm>=4.60.0
+  
+  # ============================================
+  # Configuration & Utilities
+  # ============================================
+  - pyyaml>=6.0
+  - seaborn>=0.11.2
+  
+  # ============================================
+  # Development Tools
+  # ============================================
+  - pip
+  - jupyter
+  - ipykernel
+  
+  # ============================================
+  # Pip-only packages
+  # ============================================
+  - pip:
+    - efficientnet-pytorch>=0.7.1
+    - timm>=0.6.13
+    - segmentation-models-pytorch>=0.3.2
+    - torchtoolbox>=0.1.8.2
+    - albumentations>=1.1.0
+    - imgaug>=0.4.0
+    - imutils>=0.5.4
+    - einops>=0.6.0
+    - kornia>=0.6.0
+    - loralib>=0.1.1
+    - filterpy>=1.4.5
+    - simplejson>=3.18.0
+    - fvcore>=0.1.5

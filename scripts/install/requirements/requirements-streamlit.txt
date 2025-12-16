@@ -1,0 +1,40 @@
+# ============================================
+# DeepFakeBench - Streamlit Requirements
+# For web interface and API deployment
+# ============================================
+
+# Include base requirements
+-r requirements-base.txt
+
+# ============================================
+# Web Framework
+# ============================================
+streamlit>=1.28.0
+streamlit-option-menu>=0.3.6
+streamlit-extras>=0.3.5
+
+# ============================================
+# API Development
+# ============================================
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+
+# ============================================
+# File Handling
+# ============================================
+python-magic>=0.4.27
+aiofiles>=23.2.1
+httpx>=0.25.0
+
+# ============================================
+# Visualization
+# ============================================
+plotly>=5.18.0
+altair>=5.0.0
+
+# ============================================
+# Image/Video Processing for Web
+# ============================================
+av>=10.0.0
+ffmpeg-python>=0.2.0
