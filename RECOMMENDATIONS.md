@@ -11,24 +11,30 @@ This document provides actionable recommendations to enhance the DeepFakeBenchUp
 
 ## 🔴 High Priority (Immediate)
 
-### 1. Fix SlowFast Import Warning
+### 1. SlowFast Import Warning (Non-Critical)
 
-**Issue:** Warning on import due to missing simplejson dependency
+**What Users May See:** Warning on import if simplejson not installed
 ```
 UserWarning: SlowFast setup skipped due to missing dependencies: No module named 'simplejson'
 ```
 
-**Solution:**
-✅ **Already Fixed** - `simplejson` is in requirements.txt (line 37)
+**Current Status:**
+✅ `simplejson` is already in requirements.txt (line 37) and kaggle_install.sh (line 56)
 
-**Action:** Ensure users run full installation:
+**Why Warning Appears:** Only if users don't run full installation
+
+**Solution for Users:**
 ```bash
+# Full installation (recommended):
 pip install -r requirements.txt
-# OR
+
+# OR on Kaggle:
 bash kaggle_install.sh
 ```
 
-**Status:** ✅ No action needed
+**Impact:** Low - Only affects SlowFast video detector (1 of 36+ detectors)
+
+**Status:** ✅ No code changes needed - dependency already included
 
 ---
 
@@ -226,20 +232,23 @@ if __name__ == "__main__":
 
 ---
 
-### 7. Improve Installation Scripts
+### 7. Improve Installation Documentation
 
-**Current Issue:** `simplejson` not in kaggle_install.sh
+**Current Status:** `simplejson` is already in requirements.txt (line 37) and kaggle_install.sh (line 56)
 
-**Action:** Update `kaggle_install.sh`
+**Issue:** Users may still see SlowFast warning if dependencies not fully installed
 
-```bash
-# Add after other pip installs
-echo "Installing additional utilities..."
-pip install --no-deps simplejson || echo "Warning: simplejson installation failed"
+**Action:** Improve installation documentation to emphasize full installation
+
+```markdown
+# In README.md or KAGGLE_TEST.md
+**Important:** Run complete installation to avoid warnings:
+- Kaggle: `bash kaggle_install.sh` (includes all dependencies)
+- Local: `pip install -r requirements.txt` (not `pip install deepfakebench`)
 ```
 
 **Estimated Time:** 30 minutes  
-**Impact:** Medium - Eliminates warning message
+**Impact:** Low - Clarifies installation process
 
 ---
 

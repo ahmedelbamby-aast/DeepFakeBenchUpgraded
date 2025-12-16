@@ -453,10 +453,10 @@ All critical issues have been resolved in v2.0.0.
    - **Recommendation:** Add auto-download script
 
 3. **SlowFast Dependencies Warning**
-   - **Package:** `simplejson` not in requirements.txt
-   - **Impact:** Warning on import, SlowFast detector unavailable
-   - **Solution:** Add to requirements.txt
-   - **Recommendation:** Add `simplejson` to requirements
+   - **Package:** `simplejson` is in requirements.txt but may not be installed in all environments
+   - **Impact:** Warning on import (non-critical), SlowFast detector unavailable
+   - **Solution:** Ensure full installation with `pip install -r requirements.txt`
+   - **Recommendation:** Warning is expected if simplejson not installed; can be ignored if not using SlowFast
 
 4. **Incomplete API Documentation**
    - **Missing:** Comprehensive API reference
