@@ -72,26 +72,34 @@ class SpslDetector(AbstractDetector):
         model_config = config['backbone_config']
         backbone = backbone_class(model_config)
 
-        # To get a good performance, use the ImageNet-pretrained Xception model
-        # weights_only=False for PyTorch 2.6+ compatibility
-        state_dict = torch.load(config['pretrained'], map_location='cpu', weights_only=False)
-        for name, weights in state_dict.items():
-            if 'pointwise' in name:
-                state_dict[name] = weights.unsqueeze(-1).unsqueeze(-1)
-        state_dict = {k:v for k, v in state_dict.items() if 'fc' not in k}
+        # Check if pretrained weights path is valid
+        pretrained_path = config.get('pretrained', None)
+        if pretrained_path and isinstance(pretrained_path, str) and os.path.exists(pretrained_path):
+            # To get a good performance, use the ImageNet-pretrained Xception model
+            # weights_only=False for PyTorch 2.6+ compatibility
+            state_dict = torch.load(pretrained_path, map_location='cpu', weights_only=False)
+            for name, weights in state_dict.items():
+                if 'pointwise' in name:
+                    state_dict[name] = weights.unsqueeze(-1).unsqueeze(-1)
+            state_dict = {k:v for k, v in state_dict.items() if 'fc' not in k}
 
-        # remove conv1 from state_dict
-        conv1_data = state_dict.pop('conv1.weight')
+            # remove conv1 from state_dict
+            conv1_data = state_dict.pop('conv1.weight')
 
-        backbone.load_state_dict(state_dict, False)
-        logger.info('Load pretrained model from {}'.format(config['pretrained']))
+            backbone.load_state_dict(state_dict, False)
+            logger.info('Load pretrained model from {}'.format(pretrained_path))
 
-        # copy on conv1
-        # let new conv1 use old param to balance the network
-        backbone.conv1 = nn.Conv2d(4, 32, 3, 2, 0, bias=False)
-        avg_conv1_data = conv1_data.mean(dim=1, keepdim=True)  # average across the RGB channels
-        backbone.conv1.weight.data = avg_conv1_data.repeat(1, 4, 1, 1)  # repeat the averaged weights across the 4 new channels
-        logger.info('Copy conv1 from pretrained model')
+            # copy on conv1
+            # let new conv1 use old param to balance the network
+            backbone.conv1 = nn.Conv2d(4, 32, 3, 2, 0, bias=False)
+            avg_conv1_data = conv1_data.mean(dim=1, keepdim=True)  # average across the RGB channels
+            backbone.conv1.weight.data = avg_conv1_data.repeat(1, 4, 1, 1)  # repeat the averaged weights across the 4 new channels
+            logger.info('Copy conv1 from pretrained model')
+        else:
+            # Initialize conv1 for 4 channels without pretrained weights
+            backbone.conv1 = nn.Conv2d(4, 32, 3, 2, 0, bias=False)
+            logger.warning('No pretrained backbone weights provided. Model initialized with random weights.')
+            logger.warning('You should load a trained checkpoint or provide pretrained backbone weights.')
         return backbone
 
     def build_loss(self, config):

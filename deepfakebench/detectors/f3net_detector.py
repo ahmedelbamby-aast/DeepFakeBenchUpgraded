@@ -78,22 +78,30 @@ class F3netDetector(AbstractDetector):
         model_config = config['backbone_config']
         backbone = backbone_class(model_config)
         
-        # To get a good performance, use the ImageNet-pretrained Xception model
-        state_dict = torch.load(config['pretrained'], map_location='cpu', weights_only=False)
-        for name, weights in state_dict.items():
-            if 'pointwise' in name:
-                state_dict[name] = weights.unsqueeze(-1).unsqueeze(-1)
-        state_dict = {k:v for k, v in state_dict.items() if 'fc' not in k}
-        conv1_data = state_dict['conv1.weight'].data
-        backbone.load_state_dict(state_dict, False)
-        logger.info('Load pretrained model from {}'.format(config['pretrained']))
+        # Check if pretrained weights path is valid
+        pretrained_path = config.get('pretrained', None)
+        if pretrained_path and isinstance(pretrained_path, str) and os.path.exists(pretrained_path):
+            # To get a good performance, use the ImageNet-pretrained Xception model
+            state_dict = torch.load(pretrained_path, map_location='cpu', weights_only=False)
+            for name, weights in state_dict.items():
+                if 'pointwise' in name:
+                    state_dict[name] = weights.unsqueeze(-1).unsqueeze(-1)
+            state_dict = {k:v for k, v in state_dict.items() if 'fc' not in k}
+            conv1_data = state_dict['conv1.weight'].data
+            backbone.load_state_dict(state_dict, False)
+            logger.info('Load pretrained model from {}'.format(pretrained_path))
 
-        # copy on conv1
-        # let new conv1 use old param to balance the network
-        backbone.conv1 = nn.Conv2d(12, 32, 3, 2, 0, bias=False)
-        for i in range(4):
-           backbone.conv1.weight.data[:, i*3:(i+1)*3, :, :] = conv1_data / 4.0
-        logger.info('Copy conv1 from pretrained model')
+            # copy on conv1
+            # let new conv1 use old param to balance the network
+            backbone.conv1 = nn.Conv2d(12, 32, 3, 2, 0, bias=False)
+            for i in range(4):
+               backbone.conv1.weight.data[:, i*3:(i+1)*3, :, :] = conv1_data / 4.0
+            logger.info('Copy conv1 from pretrained model')
+        else:
+            # Initialize conv1 for 12 channels without pretrained weights
+            backbone.conv1 = nn.Conv2d(12, 32, 3, 2, 0, bias=False)
+            logger.warning('No pretrained backbone weights provided. Model initialized with random weights.')
+            logger.warning('You should load a trained checkpoint or provide pretrained backbone weights.')
         return backbone
     
     def build_loss(self, config):

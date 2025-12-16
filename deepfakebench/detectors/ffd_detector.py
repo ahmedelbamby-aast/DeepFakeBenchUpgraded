@@ -85,14 +85,21 @@ class FFDDetector(AbstractDetector):
         backbone_class = BACKBONE[config['backbone_name']]
         model_config = config['backbone_config']
         backbone = backbone_class(model_config)
-        # if donot load the pretrained weights, fail to get good results
-        state_dict = torch.load(config['pretrained'], map_location='cpu', weights_only=False)
-        for name, weights in state_dict.items():
-            if 'pointwise' in name:
-                state_dict[name] = weights.unsqueeze(-1).unsqueeze(-1)
-        state_dict = {k:v for k, v in state_dict.items() if 'fc' not in k}
-        backbone.load_state_dict(state_dict, False)
-        logger.info('Load pretrained model successfully!')
+        
+        # Check if pretrained weights path is valid
+        pretrained_path = config.get('pretrained', None)
+        if pretrained_path and isinstance(pretrained_path, str) and os.path.exists(pretrained_path):
+            # if donot load the pretrained weights, fail to get good results
+            state_dict = torch.load(pretrained_path, map_location='cpu', weights_only=False)
+            for name, weights in state_dict.items():
+                if 'pointwise' in name:
+                    state_dict[name] = weights.unsqueeze(-1).unsqueeze(-1)
+            state_dict = {k:v for k, v in state_dict.items() if 'fc' not in k}
+            backbone.load_state_dict(state_dict, False)
+            logger.info('Load pretrained model successfully!')
+        else:
+            logger.warning('No pretrained backbone weights provided. Model initialized with random weights.')
+            logger.warning('You should load a trained checkpoint or provide pretrained backbone weights.')
         return backbone
 
     def build_loss(self, config):
