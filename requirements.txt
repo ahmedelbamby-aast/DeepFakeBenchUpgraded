@@ -1,41 +1,69 @@
-﻿# DeepfakeBench Requirements
-# Compatible with Python 3.7-3.11
-# Updated with modern package versions
-# For Kaggle: Uses pre-installed versions of numpy, scipy, pandas, torch
+﻿# ============================================
+# DeepfakeBench Requirements
+# ============================================
+# Compatible with Python 3.8-3.11
+# Updated: December 2025
+#
+# For detailed installation options, see:
+#   scripts/install/requirements/
+#
+# Quick install:
+#   pip install -r requirements.txt
+#
+# Full install with all features:
+#   pip install -r scripts/install/requirements/requirements-full.txt
+# ============================================
 
-# Image Processing (install only what's missing)
-opencv-python
-scikit-image
-scikit-learn
-albumentations
-imgaug
+# ============================================
+# Image Processing
+# ============================================
+opencv-python>=4.6.0
+scikit-image>=0.19.3
+scikit-learn>=1.0.2
+albumentations>=1.1.0
+imgaug>=0.4.0
+Pillow>=9.0.1
+imageio>=2.9.0
+imutils>=0.5.4
 
+# ============================================
 # Deep Learning - Models
-efficientnet-pytorch==0.7.1
-timm==0.6.13
-segmentation-models-pytorch==0.3.2
-torchtoolbox==0.1.8.2
+# ============================================
+efficientnet-pytorch>=0.7.1
+timm>=0.6.13
+segmentation-models-pytorch>=0.3.2
+torchtoolbox>=0.1.8.2
 
+# ============================================
 # Transformers (for CLIP, X-CLIP detectors)
-transformers
-tokenizers
-regex
+# ============================================
+transformers>=4.30.2
+tokenizers>=0.11,<0.14
+regex>=2023.0.0
 
+# ============================================
 # Training & Logging
-# tensorboard  # Optional - only needed for training visualization
-tqdm
+# ============================================
+tensorboard>=2.10.1
+tqdm>=4.60.0
 
+# ============================================
 # Utilities
-pyyaml
-imutils
-einops
-loralib
-filterpy
-kornia
-iopath
-fvcore
-simplejson
-lmdb
+# ============================================
+pyyaml>=6.0
+einops>=0.6.0
+loralib>=0.1.1
+filterpy>=1.4.5
+kornia>=0.6.0
+iopath>=0.1.9
+fvcore>=0.1.5
+simplejson>=3.18.0
+lmdb>=1.4.0
+seaborn>=0.11.2
 
-# Optional (may fail on some systems)
-# dlib==19.24.0  # Uncomment if needed for preprocessing
+# ============================================
+# Note: PyTorch must be installed separately
+# See installation guide for CUDA-specific versions:
+#   docs/INSTALLATION_GUIDE.md
+# ============================================
+

@@ -162,26 +162,114 @@ The implementation of more detection methods, as well as their evaluations, are 
 ## 💻 Installation
 <a href="#top">[Back to top]</a>
 
-### Kaggle / Google Colab (Recommended)
+### Quick Install Options
+
+**Option 1: Bash (Linux/macOS)**
 ```bash
+git clone https://github.com/ahmedelbamby-aast/DeepFakeBenchUpgraded.git
+cd DeepFakeBenchUpgraded
+chmod +x scripts/install/bash/install.sh
+./scripts/install/bash/install.sh --mode=pip --cuda=11.8 --profile=full
+```
+
+**Option 2: PowerShell (Windows)**
+```powershell
+git clone https://github.com/ahmedelbamby-aast/DeepFakeBenchUpgraded.git
+cd DeepFakeBenchUpgraded
+.\scripts\install\powershell\install.ps1 -Mode pip -CudaVersion 11.8 -Profile full
+```
+
+**Option 3: Conda**
+```bash
+git clone https://github.com/ahmedelbamby-aast/DeepFakeBenchUpgraded.git
+cd DeepFakeBenchUpgraded
+conda env create -f scripts/install/conda/environment.yml
+conda activate deepfakebench
+pip install -e .
+```
+
+**Option 4: Kaggle / Google Colab**
+```python
 !git clone https://github.com/ahmedelbamby-aast/DeepFakeBenchUpgraded.git
 %cd DeepFakeBenchUpgraded
 !bash kaggle_install.sh
 ```
 
-### Local Installation
+**Option 5: Basic pip**
 ```bash
 git clone https://github.com/ahmedelbamby-aast/DeepFakeBenchUpgraded.git
 cd DeepFakeBenchUpgraded
 pip install -r requirements.txt
+pip install -e .
 ```
 
-**Requirements:**
-- Python 3.8-3.12
-- PyTorch 2.x
-- CUDA 11.8+ (optional, for GPU)
+### Installation Profiles
 
-For detailed setup instructions, see [UPDATES.md](UPDATES.md#installation)
+| Profile | Description | Command |
+|---------|-------------|---------|
+| `base` | Core dependencies | `--profile=base` |
+| `full` | All features + transformers | `--profile=full` |
+| `dev` | Development tools | `--profile=dev` |
+| `streamlit` | Web interface | `--profile=streamlit` |
+
+### Requirements
+
+- **Python**: 3.8, 3.9, 3.10, or 3.11
+- **PyTorch**: 1.12+ or 2.x
+- **CUDA**: 11.7, 11.8, or 12.1 (optional)
+- **RAM**: 8GB+ (16GB recommended)
+
+📖 **Full installation guide**: [docs/INSTALLATION_GUIDE.md](docs/INSTALLATION_GUIDE.md)
+
+---
+
+## 🎯 Usage
+
+### Python API
+
+```python
+from deepfakebench import Detector
+
+# Load detector
+detector = Detector('efficientnetb4', device='cuda')
+
+# Detect deepfake in image
+result = detector.detect('path/to/image.jpg')
+print(f"Fake: {result['is_fake']}, Probability: {result['probability']:.4f}")
+
+# Detect in video
+result = detector.detect_video('path/to/video.mp4')
+print(f"Result: {result['prediction']}")
+```
+
+### Command Line
+
+```bash
+# Training
+deepfakebench-train --config deepfakebench/config/detector/resnet34.yaml
+
+# Testing
+deepfakebench-test --config deepfakebench/config/detector/resnet34.yaml
+```
+
+### Streamlit Web Interface
+
+```bash
+streamlit run streamlit_app/app.py
+```
+
+---
+
+## 📚 Documentation
+
+| Guide | Description |
+|-------|-------------|
+| [Installation Guide](docs/INSTALLATION_GUIDE.md) | Detailed setup instructions |
+| [Dataset Guide](docs/DATASET_GUIDE.md) | Download and prepare datasets |
+| [Model Guide](docs/MODEL_GUIDE.md) | Add custom detection models |
+| [API Guide](docs/API_GUIDE.md) | REST API and integration |
+| [Project Structure](docs/PROJECT_STRUCTURE.md) | Directory organization |
+| [Updates](UPDATES.md) | Changelog and fixes |
 
 ---
 

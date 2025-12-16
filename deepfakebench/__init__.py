@@ -16,7 +16,12 @@ try:
     from . import networks
     from . import dataset
     from . import trainer
-    __all__ = ['detectors', 'networks', 'dataset', 'trainer', '__version__']
+    from . import config
+    from .api import Detector, load_model
+    __all__ = [
+        'detectors', 'networks', 'dataset', 'trainer', 
+        'config', 'Detector', 'load_model', '__version__'
+    ]
 except ImportError:
     # Allow package to be imported even if submodules have issues
     __all__ = ['__version__']
