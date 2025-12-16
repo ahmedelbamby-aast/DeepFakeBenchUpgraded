@@ -67,7 +67,8 @@ class STILDetector(AbstractDetector):
         backbone = STIL_Model(num_class=2, num_segment=config['clip_size'], add_softmax=False)
         pretrained_path = config['pretrained']
         if pretrained_path:
-            state_dict = torch.load(pretrained_path)
+            # weights_only=False for PyTorch 2.6+ compatibility
+            state_dict = torch.load(pretrained_path, map_location='cpu', weights_only=False)
             state_dict = {k.replace("base_", "").replace("model.", ""): v for k, v in state_dict.items()}
             state_dict = {"base_model." + k: v for k, v in state_dict.items()}
             msg = backbone.load_state_dict(state_dict, False)

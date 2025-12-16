@@ -148,7 +148,7 @@ class FTCNDetector(AbstractDetector):
         self.resnet = ResNetOri(cfg)
         if config['pretrained'] is not None:
             print(f"loading pretrained model from {config['pretrained']}")
-            pretrained_weights = torch.load(config['pretrained'], map_location='cpu', encoding='latin1')
+            pretrained_weights = torch.load(config['pretrained'], map_location='cpu', encoding='latin1', weights_only=False)
             modified_weights = {k.replace("resnet.", ""): v for k, v in pretrained_weights.items()}
             # fit from 400 num_classes to 1
             modified_weights["head.projection.weight"] = modified_weights["head.projection.weight"][:1, :]

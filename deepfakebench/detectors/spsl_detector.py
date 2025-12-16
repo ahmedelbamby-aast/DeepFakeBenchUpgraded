@@ -73,7 +73,8 @@ class SpslDetector(AbstractDetector):
         backbone = backbone_class(model_config)
 
         # To get a good performance, use the ImageNet-pretrained Xception model
-        state_dict = torch.load(config['pretrained'])
+        # weights_only=False for PyTorch 2.6+ compatibility
+        state_dict = torch.load(config['pretrained'], map_location='cpu', weights_only=False)
         for name, weights in state_dict.items():
             if 'pointwise' in name:
                 state_dict[name] = weights.unsqueeze(-1).unsqueeze(-1)

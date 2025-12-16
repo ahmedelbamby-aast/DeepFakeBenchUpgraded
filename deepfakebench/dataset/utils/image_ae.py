@@ -111,8 +111,8 @@ class ImageAE(nn.Module):
         return out
     
     def load_ckpt(self, enc_path,  dec_path):
-        self.enc.load_state_dict(torch.load(enc_path, map_location='cpu'))
-        self.dec.load_state_dict(torch.load(dec_path, map_location='cpu'))
+        self.enc.load_state_dict(torch.load(enc_path, map_location='cpu', weights_only=False))
+        self.dec.load_state_dict(torch.load(dec_path, map_location='cpu', weights_only=False))
 
     
 def get_pretraiend_ae(enc_path='pretrained/ae/vae/enc.pth', dec_path='pretrained/ae/vae/dec1.pth'):
@@ -125,7 +125,7 @@ def get_pretraiend_ae(enc_path='pretrained/ae/vae/enc.pth', dec_path='pretrained
 # from deepfakebench.networks.pix2pix_network import UnetGenerator
 def get_pretraiend_unet(path='pretrained/ae/unet/ckpt_srm.pth'):
     unet = UnetGenerator(3, 3, 8)
-    unet.load_state_dict(torch.load(path, map_location='cpu'))
+    unet.load_state_dict(torch.load(path, map_location='cpu', weights_only=False))
     print('load Unet')
     unet.eval()
     return unet

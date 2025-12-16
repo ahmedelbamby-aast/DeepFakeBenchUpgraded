@@ -97,7 +97,8 @@ class FaceXrayDetector(AbstractDetector):
             cfg_config = yaml.safe_load(f)
         convnet = get_cls_net(cfg_config)
         pretrained_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pretrained')
-        saved = torch.load(os.path.join(pretrained_dir, 'hrnetv2_w48_imagenet_pretrained.pth'), map_location='cpu')
+        # weights_only=False for PyTorch 2.6+ compatibility
+        saved = torch.load(os.path.join(pretrained_dir, 'hrnetv2_w48_imagenet_pretrained.pth'), map_location='cpu', weights_only=False)
         convnet.load_state_dict(saved, False)
         print('Load HRnet')
         return convnet

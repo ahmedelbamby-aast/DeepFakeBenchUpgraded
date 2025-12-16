@@ -307,7 +307,8 @@ class generator(nn.Module):
     def init_xcep(self, pretrained_path='pretrained/xception-b5690688.pth'):
         xcep = Xception(self.num_classes)
         # load pre-trained Xception
-        state_dict = torch.load(pretrained_path)
+        # weights_only=False for PyTorch 2.6+ compatibility
+        state_dict = torch.load(pretrained_path, map_location='cpu', weights_only=False)
         for name, weights in state_dict.items():
             if 'pointwise' in name:
                 state_dict[name] = weights.unsqueeze(-1).unsqueeze(-1)

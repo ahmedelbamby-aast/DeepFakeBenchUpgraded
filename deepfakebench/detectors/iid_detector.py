@@ -71,7 +71,7 @@ class IIDDetector(AbstractDetector):
         self.backbone = self.build_backbone(config)
         self.loss_func = self.build_loss(config)
         self.explicit_extractor = iresnet50(False, fp16=False)
-        self.explicit_extractor.load_state_dict(torch.load(config['explicit_extractor_pretrained']))
+        self.explicit_extractor.load_state_dict(torch.load(config['explicit_extractor_pretrained'], map_location='cpu', weights_only=False))
         self.explicit_extractor.cuda().eval()
         self.BCE_LOSS = FC_ddp(config['embedding_size'], config['backbone_config']['num_classes']).cuda()
         self.IIE_LOSS = FC_ddp2(config['embedding_size'], 1000, scale=64, margin=0.4, mode='arcface', use_cifp=False,
@@ -85,7 +85,8 @@ class IIDDetector(AbstractDetector):
         backbone = backbone_class(model_config)
         if config['pretrained'] != 'None':
             # if donot load the pretrained weights, fail to get good results
-            state_dict = torch.load(config['pretrained'])
+            # weights_only=False for PyTorch 2.6+ compatibility
+            state_dict = torch.load(config['pretrained'], map_location='cpu', weights_only=False)
             for name, weights in state_dict.items():
                 if 'pointwise' in name:
                     state_dict[name] = weights.unsqueeze(-1).unsqueeze(-1)

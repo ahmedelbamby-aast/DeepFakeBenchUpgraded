@@ -170,7 +170,8 @@ class PCLXceptionDetector(AbstractDetector):
         backbone = backbone_class(model_config)
         if config['pretrained'] != 'None':
             # if donot load the pretrained weights, fail to get good results
-            state_dict = torch.load(config['pretrained'])
+            # weights_only=False for PyTorch 2.6+ compatibility
+            state_dict = torch.load(config['pretrained'], map_location='cpu', weights_only=False)
             for name, weights in state_dict.items():
                 if 'pointwise' in name:
                     state_dict[name] = weights.unsqueeze(-1).unsqueeze(-1)

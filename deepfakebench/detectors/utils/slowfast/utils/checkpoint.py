@@ -308,7 +308,7 @@ def load_checkpoint(
     else:
         # Load the checkpoint on CPU to avoid GPU mem spike.
         with PathManager.open(path_to_checkpoint, "rb") as f:
-            checkpoint = torch.load(f, map_location="cpu")
+            checkpoint = torch.load(f, map_location="cpu", weights_only=False)
         model_state_dict_3d = (
             model.module.state_dict() if data_parallel else model.state_dict()
         )
@@ -517,7 +517,7 @@ def load_train_checkpoint(cfg, model, optimizer):
 
 def load_backbone(model,file):
     current_state=model.state_dict()
-    checkpoint=torch.load(file)
+    checkpoint=torch.load(file, map_location='cpu', weights_only=False)
     
     for key in checkpoint:
         if key in current_state:

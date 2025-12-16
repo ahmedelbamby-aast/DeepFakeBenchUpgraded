@@ -184,7 +184,7 @@ def main():
             epoch = int(weights_path.split('/')[-1].split('.')[0].split('_')[2])
         except:
             epoch = 0
-        ckpt = torch.load(weights_path, map_location=device)
+        ckpt = torch.load(weights_path, map_location=device, weights_only=False)
         model.load_state_dict(ckpt, strict=True)
         print('===> Load checkpoint done!')
     else:

@@ -292,7 +292,8 @@ class TransferModel(nn.Module):
                 # Load model in torch 0.4+
                 # model.fc = model.last_linear
                 # del model.last_linear
-                state_dict = torch.load(config['pretrained'])
+                # weights_only=False for PyTorch 2.6+ compatibility
+                state_dict = torch.load(config['pretrained'], map_location='cpu', weights_only=False)
                 print('Loaded pretrained model (ImageNet)....')
                 for name, weights in state_dict.items():
                     if 'pointwise' in name:

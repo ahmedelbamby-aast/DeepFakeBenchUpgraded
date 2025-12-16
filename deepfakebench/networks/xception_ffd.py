@@ -240,7 +240,7 @@ class Model:
   def __init__(self, maptype='None', templates=None, num_classes=2, load_pretrain=True):
     model = Xception(maptype, templates, num_classes=num_classes)
     if load_pretrain:
-      state_dict = torch.load('./xception-b5690688.pth')
+      state_dict = torch.load('./xception-b5690688.pth', map_location='cpu', weights_only=False)
       for name, weights in state_dict:
         if 'pointwise' in name:
           state_dict[name] = weights.unsqueeze(-1).unsqueeze(-1)
@@ -260,7 +260,7 @@ class Model:
     filename = '{0}{1:06d}.tar'.format(model_dir, epoch)
     print('Loading model from {0}'.format(filename))
     if os.path.exists(filename):
-      state = torch.load(filename)
+      state = torch.load(filename, map_location='cpu', weights_only=False)
       self.model.load_state_dict(state['net'])
     else:
       print('Failed to load model from {0}'.format(filename))

@@ -124,7 +124,8 @@ class Trainer(object):
 
     def load_ckpt(self, model_path):
         if os.path.isfile(model_path):
-            saved = torch.load(model_path, map_location='cpu')
+            # weights_only=False for PyTorch 2.6+ compatibility
+            saved = torch.load(model_path, map_location='cpu', weights_only=False)
             suffix = model_path.split('.')[-1]
             if suffix == 'p':
                 self.model.load_state_dict(saved.state_dict())
