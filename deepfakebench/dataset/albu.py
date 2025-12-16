@@ -24,6 +24,7 @@ def isotropically_resize_image(img, size, interpolation_down=cv2.INTER_AREA, int
 
 
 class IsotropicResize(DualTransform):
+    """Original IsotropicResize - kept for backward compatibility."""
     def __init__(self, max_side, interpolation_down=cv2.INTER_AREA, interpolation_up=cv2.INTER_CUBIC,
                  always_apply=False, p=1):
         super(IsotropicResize, self).__init__(always_apply, p)
@@ -40,6 +41,40 @@ class IsotropicResize(DualTransform):
 
     def get_transform_init_args_names(self):
         return ("max_side", "interpolation_down", "interpolation_up")
+
+
+class RandomIsotropicResize(DualTransform):
+    """
+    Randomly selects one of three isotropic resize interpolation combinations.
+    This replaces A.OneOf([IsotropicResize(...), ...]) which has issues with newer albumentations.
+    """
+    def __init__(self, max_side, always_apply=False, p=1):
+        super(RandomIsotropicResize, self).__init__(always_apply, p)
+        self.max_side = max_side
+        # Define the three interpolation combinations
+        self.interpolation_options = [
+            (cv2.INTER_AREA, cv2.INTER_CUBIC),
+            (cv2.INTER_AREA, cv2.INTER_LINEAR),
+            (cv2.INTER_LINEAR, cv2.INTER_LINEAR),
+        ]
+
+    def apply(self, img, interpolation_idx=0, **params):
+        interpolation_down, interpolation_up = self.interpolation_options[interpolation_idx]
+        return isotropically_resize_image(img, size=self.max_side, 
+                                          interpolation_down=interpolation_down,
+                                          interpolation_up=interpolation_up)
+
+    def apply_to_mask(self, img, **params):
+        # Always use NEAREST for masks
+        return isotropically_resize_image(img, size=self.max_side,
+                                          interpolation_down=cv2.INTER_NEAREST,
+                                          interpolation_up=cv2.INTER_NEAREST)
+
+    def get_params(self):
+        return {"interpolation_idx": random.randint(0, 2)}
+
+    def get_transform_init_args_names(self):
+        return ("max_side",)
 
 
 class Resize4xAndBack(ImageOnlyTransform):

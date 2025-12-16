@@ -15,7 +15,7 @@ import torch
 import numpy as np
 from copy import deepcopy
 import albumentations as A
-from deepfakebench.dataset.albu import IsotropicResize
+from deepfakebench.dataset.albu import IsotropicResize, RandomIsotropicResize
 from deepfakebench.dataset.abstract_dataset import DeepfakeAbstractBaseDataset
 from deepfakebench.dataset.sbi_api import SBI_API
 
@@ -106,14 +106,11 @@ class SBIDataset(DeepfakeAbstractBaseDataset):
             A.GaussianBlur(blur_limit=self.config['data_aug']['blur_limit'], p=self.config['data_aug']['blur_prob']),
         ]
         
-        # Add IsotropicResize only if not using landmarks (p > 0)
+        # Add RandomIsotropicResize only if not using landmarks
+        # Using RandomIsotropicResize instead of A.OneOf to avoid ZeroDivisionError in newer albumentations
         if not self.config['with_landmark']:
             transforms_list.append(
-                A.OneOf([                
-                    IsotropicResize(max_side=self.config['resolution'], interpolation_down=cv2.INTER_AREA, interpolation_up=cv2.INTER_CUBIC),
-                    IsotropicResize(max_side=self.config['resolution'], interpolation_down=cv2.INTER_AREA, interpolation_up=cv2.INTER_LINEAR),
-                    IsotropicResize(max_side=self.config['resolution'], interpolation_down=cv2.INTER_LINEAR, interpolation_up=cv2.INTER_LINEAR),
-                ], p=1)
+                RandomIsotropicResize(max_side=self.config['resolution'], p=1)
             )
         
         # Add color augmentations

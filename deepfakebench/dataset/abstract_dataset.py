@@ -29,7 +29,7 @@ from torchvision import transforms as T
 
 import albumentations as A
 
-from .albu import IsotropicResize
+from .albu import IsotropicResize, RandomIsotropicResize
 
 FFpp_pool=['FaceForensics++','FaceShifter','DeepFakeDetection','FF-DF','FF-F2F','FF-FS','FF-NT']#
 
@@ -118,14 +118,11 @@ class DeepfakeAbstractBaseDataset(data.Dataset):
             A.GaussianBlur(blur_limit=self.config['data_aug']['blur_limit'], p=self.config['data_aug']['blur_prob']),
         ]
         
-        # Add IsotropicResize only if not using landmarks (p > 0)
+        # Add RandomIsotropicResize only if not using landmarks
+        # Using RandomIsotropicResize instead of A.OneOf to avoid ZeroDivisionError in newer albumentations
         if not self.config['with_landmark']:
             transforms_list.append(
-                A.OneOf([                
-                    IsotropicResize(max_side=self.config['resolution'], interpolation_down=cv2.INTER_AREA, interpolation_up=cv2.INTER_CUBIC),
-                    IsotropicResize(max_side=self.config['resolution'], interpolation_down=cv2.INTER_AREA, interpolation_up=cv2.INTER_LINEAR),
-                    IsotropicResize(max_side=self.config['resolution'], interpolation_down=cv2.INTER_LINEAR, interpolation_up=cv2.INTER_LINEAR),
-                ], p=1)
+                RandomIsotropicResize(max_side=self.config['resolution'], p=1)
             )
         
         # Add color augmentations
