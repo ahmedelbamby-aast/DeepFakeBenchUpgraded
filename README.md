@@ -266,7 +266,8 @@ streamlit run streamlit_app/app.py
 |-------|-------------|
 | [Installation Guide](docs/INSTALLATION_GUIDE.md) | Detailed setup instructions |
 | [Dataset Guide](docs/DATASET_GUIDE.md) | Download and prepare datasets |
-| [Model Guide](docs/MODEL_GUIDE.md) | Add custom detection models |
+| [Custom Models Guide](docs/CUSTOM_MODELS_GUIDE.md) | **📌 NEW**: Add your own models with examples |
+| [Model Guide](docs/MODEL_GUIDE.md) | Technical model implementation details |
 | [API Guide](docs/API_GUIDE.md) | REST API and integration |
 | [Project Structure](docs/PROJECT_STRUCTURE.md) | Directory organization |
 | [Updates](UPDATES.md) | Changelog and fixes |
