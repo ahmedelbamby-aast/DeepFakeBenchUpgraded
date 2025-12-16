@@ -15,6 +15,11 @@ export PYTHONWARNINGS="ignore"
 export CUDA_DEVICE_ORDER=PCI_BUS_ID
 export TOKENIZERS_PARALLELISM=false
 
+# Suppress ABSL logging (fixes cuDNN/cuBLAS warnings)
+export GRPC_VERBOSITY=ERROR
+export GLOG_minloglevel=3
+export ABSL_MIN_LOG_LEVEL=3
+
 # Suppress pip warnings
 export PIP_DISABLE_PIP_VERSION_CHECK=1
 export PIP_NO_WARN_SCRIPT_LOCATION=1
@@ -49,11 +54,21 @@ fi
 # SECTION 2: UNINSTALL CONFLICTING PACKAGES (Clean slate)
 # ============================================================================
 echo ""
-echo "Preparing environment..."
+echo "Preparing environment (fixing TensorBoard/protobuf conflicts)..."
 
 # Silently remove potentially conflicting packages
 pip uninstall -q -y dopamine-rl 2>/dev/null || true
 pip uninstall -q -y tensorflow-probability 2>/dev/null || true
+
+# Fix TensorBoard/protobuf compatibility issues (critical for Kaggle Python 3.11)
+pip uninstall -q -y tensorboard tensorboard-data-server tb-nightly 2>/dev/null || true
+pip uninstall -q -y protobuf 2>/dev/null || true
+
+# Install compatible protobuf version (works with Python 3.11 and 3.12)
+pip install -q "protobuf>=3.20,<5" 2>/dev/null || true
+
+# Reinstall tensorboard with compatible version
+pip install -q "tensorboard>=2.14,<2.16" 2>/dev/null || true
 
 # ============================================================================
 # SECTION 3: INSTALL REQUIRED PACKAGES ONLY
