@@ -5,3 +5,5 @@
 *.pth
 *.pt
 *.dat
+deepfakebench/preprocessing/facexray/landmark_dict_ffall.pkl
+*.pkl
