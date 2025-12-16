@@ -111,22 +111,39 @@ class DeepfakeAbstractBaseDataset(data.Dataset):
         self.transform = self.init_data_aug_method()
         
     def init_data_aug_method(self):
-        trans = A.Compose([           
+        # Build transforms list
+        transforms_list = [           
             A.HorizontalFlip(p=self.config['data_aug']['flip_prob']),
             A.Rotate(limit=self.config['data_aug']['rotate_limit'], p=self.config['data_aug']['rotate_prob']),
             A.GaussianBlur(blur_limit=self.config['data_aug']['blur_limit'], p=self.config['data_aug']['blur_prob']),
-            A.OneOf([                
-                IsotropicResize(max_side=self.config['resolution'], interpolation_down=cv2.INTER_AREA, interpolation_up=cv2.INTER_CUBIC),
-                IsotropicResize(max_side=self.config['resolution'], interpolation_down=cv2.INTER_AREA, interpolation_up=cv2.INTER_LINEAR),
-                IsotropicResize(max_side=self.config['resolution'], interpolation_down=cv2.INTER_LINEAR, interpolation_up=cv2.INTER_LINEAR),
-            ], p = 0 if self.config['with_landmark'] else 1),
+        ]
+        
+        # Add IsotropicResize only if not using landmarks (p > 0)
+        if not self.config['with_landmark']:
+            transforms_list.append(
+                A.OneOf([                
+                    IsotropicResize(max_side=self.config['resolution'], interpolation_down=cv2.INTER_AREA, interpolation_up=cv2.INTER_CUBIC),
+                    IsotropicResize(max_side=self.config['resolution'], interpolation_down=cv2.INTER_AREA, interpolation_up=cv2.INTER_LINEAR),
+                    IsotropicResize(max_side=self.config['resolution'], interpolation_down=cv2.INTER_LINEAR, interpolation_up=cv2.INTER_LINEAR),
+                ], p=1)
+            )
+        
+        # Add color augmentations
+        transforms_list.append(
             A.OneOf([
                 A.RandomBrightnessContrast(brightness_limit=self.config['data_aug']['brightness_limit'], contrast_limit=self.config['data_aug']['contrast_limit']),
                 A.FancyPCA(),
                 A.HueSaturationValue()
-            ], p=0.5),
+            ], p=0.5)
+        )
+        
+        # Add compression augmentation
+        transforms_list.append(
             A.ImageCompression(quality_lower=self.config['data_aug']['quality_lower'], quality_upper=self.config['data_aug']['quality_upper'], p=0.5)
-        ], 
+        )
+        
+        trans = A.Compose(
+            transforms_list, 
             keypoint_params=A.KeypointParams(format='xy') if self.config['with_landmark'] else None
         )
         return trans
