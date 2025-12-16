@@ -1,8 +1,8 @@
 ﻿# log dir 
-log_dir: logs/evaluations/effnb4
+log_dir: ./logs
 
 # model setting
-# pretrained: /home/zhiyuanyan/disfin/deepfake_benchmark/deepfakebench/pretrained/xception-b5690688.pth   # path to a pre-trained model, if using one
+# pretrained: ./deepfakebench/pretrained/xception-b5690688.pth   # path to a pre-trained model, if using one
 pretrained: ./deepfakebench/pretrained/efficientnet-b4-6ed6700e.pth   # path to a pre-trained model, if using one
 model_name: efficientnetb4   # model name
 backbone_name: efficientnetb4  # backbone name

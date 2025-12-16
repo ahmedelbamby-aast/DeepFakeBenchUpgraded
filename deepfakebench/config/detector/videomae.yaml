@@ -1,8 +1,8 @@
 ﻿# log dir 
-log_dir: /data/home/zhiyuanyan/DeepfakeBench/logs_debug/video_baseline
+log_dir: ./logs
 
 # model setting
-pretrained: /data/home/zhiyuanyan/DeepfakeBench/deepfakebench/pretrained/xception-b5690688.pth   # path to a pre-trained model, if using one
+pretrained: ./deepfakebench/pretrained/xception-b5690688.pth   # path to a pre-trained model, if using one
 model_name: videomae   # model name
 backbone_name: null  # backbone name
 

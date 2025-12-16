@@ -181,16 +181,39 @@ docker run -it -v $(pwd)/datasets:/app/datasets deepfakebench:latest
        -Name "LongPathsEnabled" -Value 1 -PropertyType DWORD -Force
    ```
 
-2. **Install Visual C++ Build Tools** (if needed):
+2. **Install Visual C++ Build Tools** (required for some packages):
    - Download from [Microsoft](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
    - Select "Desktop development with C++"
+   - This is required for packages like dlib, some versions of scipy, etc.
 
-3. **Run Installation**:
+3. **Install DLib** (required for face detection):
+   ```powershell
+   # Easiest method - pre-built binary
+   pip install dlib-bin
+   
+   # Or if you have Visual Studio Build Tools installed
+   pip install dlib
+   ```
+
+4. **Install CMake** (if building packages from source):
+   ```powershell
+   # Using winget
+   winget install Kitware.CMake
+   
+   # Or download from https://cmake.org/download/
+   ```
+
+5. **Run Installation**:
    ```powershell
    # With execution policy override
    Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
    .\scripts\install\powershell\install.ps1 -Mode pip -Profile full
    ```
+
+6. **Common Windows Issues**:
+   - If you get `LongPathsEnabled` errors, run step 1 as Administrator
+   - If `dlib` fails to build, use `pip install dlib-bin` instead
+   - If `cmake` is not found, install it and restart your terminal
 
 ### Linux (Ubuntu/Debian)
 
@@ -306,11 +329,99 @@ pip install tokenizers --prefer-binary
 
 #### 5. DLib Installation Error
 
-**Solution**: DLib is optional. If installation fails, skip it:
-```bash
-pip install -r requirements-base.txt
-# Ignore dlib errors
+DLib is required for face detection in some preprocessing steps.
+
+##### Windows - Option 1: Pre-built Binary (Recommended) ✅
+
+```powershell
+pip install dlib-bin
 ```
+This installs a pre-compiled version - no build tools needed.
+
+##### Windows - Option 2: Using Conda
+
+```powershell
+conda install -c conda-forge dlib
+```
+
+##### Windows - Option 3: Build from Source
+
+If you need the latest features or the pre-built binary doesn't work:
+
+**Step 1: Install Visual Studio Build Tools**
+- Download [Visual Studio Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
+- Run the installer and select **"Desktop development with C++"**
+- Make sure these components are checked:
+  - MSVC v143 (or latest) - VS 2022 C++ x64/x86 build tools
+  - Windows 10/11 SDK
+  - C++ CMake tools for Windows
+
+**Step 2: Install CMake**
+
+```powershell
+# Using winget (Windows Package Manager)
+winget install Kitware.CMake
+
+# Or using Chocolatey
+choco install cmake
+
+# Or download directly from https://cmake.org/download/
+```
+
+After installation, make sure CMake is in your PATH:
+```powershell
+cmake --version
+```
+
+**Step 3: Install dlib**
+
+```powershell
+pip install dlib
+```
+
+##### Windows - Troubleshooting DLib
+
+| Error | Solution |
+|-------|----------|
+| `CMake not found` | Install CMake and restart terminal, or add to PATH |
+| `No C++ compiler` | Install Visual Studio Build Tools with C++ workload |
+| `wheel build failed` | Use `pip install dlib-bin` instead |
+| `Missing vcvarsall.bat` | Ensure "Desktop development with C++" is installed |
+
+##### Linux - DLib Installation
+
+```bash
+# Ubuntu/Debian
+sudo apt-get install -y build-essential cmake libopenblas-dev liblapack-dev libx11-dev
+pip install dlib
+
+# Or use pre-built binary
+pip install dlib-bin
+```
+
+##### macOS - DLib Installation
+
+```bash
+# Using Homebrew
+brew install cmake
+brew install dlib
+
+# Or via pip
+pip install dlib-bin
+```
+
+##### Verify DLib Installation
+
+```python
+import dlib
+print(f"dlib version: {dlib.__version__}")
+
+# Test face detector
+detector = dlib.get_frontal_face_detector()
+print("dlib working!")
+```
+
+**Note**: If dlib installation continues to fail, you can still use most of DeepFakeBench features. DLib is primarily used in preprocessing for face detection.
 
 ### Verify Installation
 

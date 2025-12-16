@@ -1,5 +1,5 @@
 ﻿# log dir 
-log_dir: /mntcephfs/lab_data/yuanxinhang/benchmark_results/logs_final/meso4
+log_dir: ./logs
 
 # model setting
 pretrained: false   # path to a pre-trained model, if using one

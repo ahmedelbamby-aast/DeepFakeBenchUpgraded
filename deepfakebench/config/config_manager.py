@@ -44,13 +44,16 @@ PROJECT_ROOT = get_project_root()
 @dataclass
 class PathConfig:
     """Path configuration with automatic resolution."""
+    project_root: Path = field(default_factory=lambda: PROJECT_ROOT)
     datasets: Path = field(default_factory=lambda: PROJECT_ROOT / "datasets")
     rgb_dir: Path = field(default_factory=lambda: PROJECT_ROOT / "datasets" / "rgb")
     lmdb_dir: Path = field(default_factory=lambda: PROJECT_ROOT / "datasets" / "lmdb")
+    data_dir: Path = field(default_factory=lambda: PROJECT_ROOT / "datasets")
     checkpoints: Path = field(default_factory=lambda: PROJECT_ROOT / "checkpoints")
     logs: Path = field(default_factory=lambda: PROJECT_ROOT / "logs")
     outputs: Path = field(default_factory=lambda: PROJECT_ROOT / "outputs")
     cache: Path = field(default_factory=lambda: PROJECT_ROOT / "cache")
+    pretrained_dir: Path = field(default_factory=lambda: PROJECT_ROOT / "deepfakebench" / "pretrained")
     pretrained: Path = field(default_factory=lambda: PROJECT_ROOT / "deepfakebench" / "pretrained")
     configs: Path = field(default_factory=lambda: PROJECT_ROOT / "deepfakebench" / "config")
 

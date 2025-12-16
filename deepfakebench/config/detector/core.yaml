@@ -1,8 +1,8 @@
 ﻿# log dir 
-log_dir: /data/home/zhiyuanyan/logs/testing_bench
+log_dir: ./logs
 
 # model setting
-# pretrained: /home/yuanxinhang/resnet34-b627a593.pth   # path to a pre-trained model, if using one
+# pretrained: ./deepfakebench/pretrained/resnet34-b627a593.pth   # path to a pre-trained model, if using one
 pretrained: ./deepfakebench/pretrained/xception-b5690688.pth   # path to a pre-trained model, if using one
 model_name: core   # model name
 backbone_name: xception  # backbone name

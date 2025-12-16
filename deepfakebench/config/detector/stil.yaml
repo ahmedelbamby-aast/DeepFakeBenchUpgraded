@@ -1,5 +1,5 @@
 ﻿# log dir 
-log_dir: /data/home/zhiyuanyan/logs/benchv2/stil
+log_dir: ./logs
 
 # model setting
 pretrained: null   # path to a pre-trained model, if using one

@@ -1,5 +1,5 @@
 ﻿# log dir
-log_dir: log/multi_attention/
+log_dir: ./logs
 
 # model setting
 pretrained: ./deepfakebench/pretrained/efficientnet-b4-6ed6700e.pth   # path to a pre-trained model, if using one

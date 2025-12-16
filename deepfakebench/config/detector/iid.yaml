@@ -1,5 +1,5 @@
 ﻿# log dir 
-log_dir: /data/home/zhiyuanyan/logs/benchv2/iid
+log_dir: ./logs
 
 #LMDB dir
 lmdb_dir: 'I:\transform_2_lmdb'

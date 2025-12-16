@@ -1,5 +1,5 @@
 ﻿# log dir
-log_dir: ./logs/benchv2/tall/trainOnFS
+log_dir: ./logs
 
 # model setting
 pretrained: null   # path to a pre-trained model, if using one
@@ -80,7 +80,7 @@ metric_scoring: auc   # metric for evaluation (auc, acc, eer, ap)
 cuda: true   # whether to use CUDA acceleration
 cudnn: true   # whether to use CuDNN for convolution operations
 
-dataset_json_folder: 'datasets/dataset_json'
+dataset_json_folder: ./deepfakebench/preprocessing/dataset_json
 rgb_dir: 'datasets/rgb'
 label_dict:
   # DFD

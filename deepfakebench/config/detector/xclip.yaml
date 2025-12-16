@@ -1,8 +1,8 @@
 ﻿# log dir 
-log_dir: /data/home/zhiyuanyan/DeepfakeBench/logs_debug/xclip
+log_dir: ./logs
 
 # model setting
-pretrained: /Youtu_Pangu_Security_Public/youtu-pangu-public/zhiyuanyan/DeepfakeBench/deepfakebench/pretrained/xception-b5690688.pth   # path to a pre-trained model, if using one
+pretrained: ./deepfakebench/pretrained/xception-b5690688.pth   # path to a pre-trained model, if using one
 model_name: xclip   # model name
 backbone_name: xception  # backbone name
 

@@ -1,7 +1,7 @@
 ﻿# ============================================
 # DeepfakeBench Requirements
 # ============================================
-# Compatible with Python 3.8-3.11
+# Compatible with Python 3.8-3.12
 # Updated: December 2025
 #
 # For detailed installation options, see:
@@ -15,9 +15,16 @@
 # ============================================
 
 # ============================================
+# Scientific Computing
+# ============================================
+numpy>=1.21.6,<2.0  # Required for imgaug compatibility
+scipy>=1.7.3
+pandas>=1.3.5
+
+# ============================================
 # Image Processing
 # ============================================
-opencv-python>=4.6.0
+opencv-python-headless>=4.6.0  # Use headless for server environments
 scikit-image>=0.19.3
 scikit-learn>=1.0.2
 albumentations>=1.1.0
@@ -25,6 +32,7 @@ imgaug>=0.4.0
 Pillow>=9.0.1
 imageio>=2.9.0
 imutils>=0.5.4
+matplotlib>=3.5.0
 
 # ============================================
 # Deep Learning - Models
@@ -32,14 +40,11 @@ imutils>=0.5.4
 efficientnet-pytorch>=0.7.1
 timm>=0.6.13
 segmentation-models-pytorch>=0.3.2
-torchtoolbox>=0.1.8.2
 
 # ============================================
 # Transformers (for CLIP, X-CLIP detectors)
 # ============================================
 transformers>=4.30.2
-tokenizers>=0.11,<0.14
-regex>=2023.0.0
 
 # ============================================
 # Training & Logging
@@ -62,8 +67,17 @@ lmdb>=1.4.0
 seaborn>=0.11.2
 
 # ============================================
+# Face Detection
+# ============================================
+dlib-bin>=20.0.0  # Pre-built binary (easier to install)
+
+# ============================================
 # Note: PyTorch must be installed separately
 # See installation guide for CUDA-specific versions:
 #   docs/INSTALLATION_GUIDE.md
+#
+# CPU: pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+# CUDA 11.8: pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+# CUDA 12.1: pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 # ============================================
 

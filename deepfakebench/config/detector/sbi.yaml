@@ -1,8 +1,8 @@
 ﻿# log dir
-log_dir: /data/home/zhiyuanyan/logs/benchv2/sbi_v3
+log_dir: ./logs
 
 # model setting
-pretrained: /data/home/zhiyuanyan/DeepfakeBench/deepfakebench/pretrained/xception-b5690688.pth   # path to a pre-trained model, if using one
+pretrained: ./deepfakebench/pretrained/xception-b5690688.pth   # path to a pre-trained model, if using one
 model_name: sbi   # model name
 backbone_name: efficientnetb4  # backbone name
 

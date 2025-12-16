@@ -1,5 +1,5 @@
 ﻿# log dir 
-log_dir: /data/home/zhiyuanyan/DeepfakeBench/logs_debug/time_transformer
+log_dir: ./logs
 
 # model setting
 pretrained: ./deepfakebench/pretrained/xception-b5690688.pth   # path to a pre-trained model, if using one
