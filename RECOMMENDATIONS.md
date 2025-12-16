@@ -476,10 +476,10 @@ def test_detector_forward():
 
 ## 💡 Quick Wins (Can Be Done Today)
 
-1. **Update kaggle_install.sh** - Add simplejson (30 min)
-2. **Create CONTRIBUTING.md** - Basic guide (1 hour)
-3. **Add analysis/README.md** - Document scripts (2 hours)
-4. **Create one tutorial notebook** - Quick start (2 hours)
+1. **Create CONTRIBUTING.md** - Basic guide (1 hour)
+2. **Add analysis/README.md** - Document scripts (2 hours)
+3. **Create one tutorial notebook** - Quick start (2 hours)
+4. **Improve installation docs** - Clarify full install (30 min)
 
 **Total Time:** ~5-6 hours for significant improvements
 

@@ -532,54 +532,48 @@ All critical issues have been resolved in v2.0.0.
 
 ### Immediate Actions (High Priority)
 
-1. **Add `simplejson` to requirements.txt**
-   ```bash
-   echo "simplejson" >> requirements.txt
-   ```
-   **Impact:** Removes SlowFast import warning
-
-2. **Create API Documentation**
+1. **Create API Documentation**
    - Use Sphinx to generate comprehensive API docs
    - Host on Read the Docs or GitHub Pages
 
-3. **Add Tutorial Notebooks**
+2. **Add Tutorial Notebooks**
    - Custom dataset integration tutorial
    - Fine-tuning tutorial
    - Multi-GPU training tutorial
 
 ### Short-term Improvements (Medium Priority)
 
-4. **Create Dataset Download Scripts**
+3. **Create Dataset Download Scripts**
    - Automated download (where licenses permit)
    - Dataset structure validation
 
-5. **Add CONTRIBUTING.md**
+4. **Add CONTRIBUTING.md**
    - Guide for adding new detectors
    - Code style guidelines
    - Pull request process
 
-6. **Document Analysis Scripts**
+5. **Document Analysis Scripts**
    - Add README.md in `analysis/` folder
    - Example usage for each script
 
 ### Long-term Enhancements (Low Priority)
 
-7. **Model Zoo**
+6. **Model Zoo**
    - Host pretrained weights
    - Performance benchmarks
    - Easy download interface
 
-8. **Docker Support**
+7. **Docker Support**
    - Dockerfile for reproducible environment
    - Docker Compose for multi-GPU setup
 
-9. **Web Interface**
+8. **Web Interface**
    - Gradio/Streamlit demo
    - Easy testing without code
 
-10. **Continuous Integration**
-    - GitHub Actions for testing
-    - Automated testing on commits
+9. **Continuous Integration**
+   - GitHub Actions for testing
+   - Automated testing on commits
 
 ---
 
