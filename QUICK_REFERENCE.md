@@ -3,9 +3,9 @@
 ## 📚 Navigation
 
 ### 🎯 Start Here
-- **New Users:** Read [README.md](README.md) → [KAGGLE_TEST.md](KAGGLE_TEST.md)
-- **Developers:** Read [REPOSITORY_ANALYSIS.md](REPOSITORY_ANALYSIS.md) → [PACKAGE_GUIDE.md](PACKAGE_GUIDE.md)
-- **Contributors:** Read [RECOMMENDATIONS.md](RECOMMENDATIONS.md)
+- **New Users:** Read [README.md](README.md) → [KAGGLE_GUIDE.md](KAGGLE_GUIDE.md)
+- **Developers:** Read [README.md](README.md) → [DEVELOPMENT_GUIDE.md](DEVELOPMENT_GUIDE.md)
+- **Troubleshooting:** Check [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
 
 ---
 
@@ -15,31 +15,21 @@
 | Document | Purpose | Audience |
 |----------|---------|----------|
 | [README.md](README.md) | Main project documentation | Everyone |
-| [REPOSITORY_ANALYSIS.md](REPOSITORY_ANALYSIS.md) | **Complete repo explanation** | Everyone |
 | [UPDATES.md](UPDATES.md) | Version 2.0 changelog | Everyone |
-| [PROJECT_STATUS.md](PROJECT_STATUS.md) | Current project status | Everyone |
+| [FOLDER_STRUCTURE.md](FOLDER_STRUCTURE.md) | Repository organization | Everyone |
 
 ### For Users
 | Document | Purpose |
 |----------|---------|
-| [KAGGLE_TEST.md](KAGGLE_TEST.md) | Quick start on Kaggle (2-3 min) |
-| [KAGGLE_SETUP.md](KAGGLE_SETUP.md) | Environment setup guide |
-| [KAGGLE_DATASET_GUIDE.md](KAGGLE_DATASET_GUIDE.md) | Dataset structure guide |
-| [KAGGLE_FIXES.md](KAGGLE_FIXES.md) | Troubleshooting guide |
+| [KAGGLE_GUIDE.md](KAGGLE_GUIDE.md) | **Complete Kaggle guide** (setup, testing, troubleshooting) |
+| [KAGGLE_DATASET_GUIDE.md](KAGGLE_DATASET_GUIDE.md) | Dataset structure compatibility guide |
+| [TROUBLESHOOTING.md](TROUBLESHOOTING.md) | **Common issues and solutions** |
 
 ### For Developers
 | Document | Purpose |
 |----------|---------|
-| [PACKAGE_GUIDE.md](PACKAGE_GUIDE.md) | Package development guide |
-| [FOLDER_STRUCTURE.md](FOLDER_STRUCTURE.md) | Repository organization |
-| [RECOMMENDATIONS.md](RECOMMENDATIONS.md) | Improvement suggestions |
-| [PYPI_PUBLISHING.md](PYPI_PUBLISHING.md) | Publishing instructions |
-
-### Technical Details
-| Document | Purpose |
-|----------|---------|
-| [TENSORBOARD_FIX.md](TENSORBOARD_FIX.md) | TensorBoard optional fix |
-| [WARNING_SUPPRESSION_FIX.md](WARNING_SUPPRESSION_FIX.md) | Warning handling |
+| [DEVELOPMENT_GUIDE.md](DEVELOPMENT_GUIDE.md) | **Complete development guide** (package dev, PyPI publishing, contributing) |
+| [FOLDER_STRUCTURE.md](FOLDER_STRUCTURE.md) | Repository organization reference |
 
 ---
 
@@ -169,13 +159,13 @@ python deepfakebench/test.py \
 
 | Question | Answer |
 |----------|--------|
-| Install on Kaggle? | [KAGGLE_TEST.md](KAGGLE_TEST.md) |
+| Install on Kaggle? | [KAGGLE_GUIDE.md](KAGGLE_GUIDE.md) |
 | Use my own dataset? | [KAGGLE_DATASET_GUIDE.md](KAGGLE_DATASET_GUIDE.md) |
-| Add a new detector? | [RECOMMENDATIONS.md](RECOMMENDATIONS.md#4-create-contributingmd) |
-| Fix import errors? | [KAGGLE_FIXES.md](KAGGLE_FIXES.md) |
-| Understand the code structure? | [REPOSITORY_ANALYSIS.md](REPOSITORY_ANALYSIS.md) |
-| Contribute to the project? | [RECOMMENDATIONS.md](RECOMMENDATIONS.md) |
-| Publish to PyPI? | [PYPI_PUBLISHING.md](PYPI_PUBLISHING.md) |
+| Add a new detector? | [DEVELOPMENT_GUIDE.md](DEVELOPMENT_GUIDE.md#contributing) |
+| Fix import errors? | [TROUBLESHOOTING.md](TROUBLESHOOTING.md#import-errors) |
+| Understand the code structure? | [FOLDER_STRUCTURE.md](FOLDER_STRUCTURE.md) |
+| Contribute to the project? | [DEVELOPMENT_GUIDE.md](DEVELOPMENT_GUIDE.md#contributing) |
+| Publish to PyPI? | [DEVELOPMENT_GUIDE.md](DEVELOPMENT_GUIDE.md#publishing-to-pypi) |
 
 ---
 
@@ -236,7 +226,7 @@ python deepfakebench/test.py \
 3. **dlib model file missing** - Only needed for preprocessing
    - **Workaround:** Download from link in README
 
-**Full List:** [REPOSITORY_ANALYSIS.md](REPOSITORY_ANALYSIS.md#-identified-issues--missing-components)
+**Full List:** [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
 
 ---
 
@@ -252,7 +242,7 @@ python deepfakebench/test.py \
 5. **Document Analysis Scripts** - Add README in analysis/ (2-3 hours)
 6. **Dataset Download Helper** - Auto-download script (6-8 hours)
 
-**Full List with Details:** [RECOMMENDATIONS.md](RECOMMENDATIONS.md)
+**See Development Guide:** [DEVELOPMENT_GUIDE.md](DEVELOPMENT_GUIDE.md)
 
 ---
 
@@ -314,8 +304,8 @@ python deepfakebench/test.py \
 
 ### If You're New
 1. Read [README.md](README.md)
-2. Try [KAGGLE_TEST.md](KAGGLE_TEST.md) quick start
-3. Review [REPOSITORY_ANALYSIS.md](REPOSITORY_ANALYSIS.md)
+2. Try [KAGGLE_GUIDE.md](KAGGLE_GUIDE.md) quick start
+3. Check [TROUBLESHOOTING.md](TROUBLESHOOTING.md) if needed
 
 ### If You Want to Train
 1. Download datasets (see [README.md](README.md))
@@ -324,8 +314,8 @@ python deepfakebench/test.py \
 4. Start training!
 
 ### If You Want to Contribute
-1. Read [REPOSITORY_ANALYSIS.md](REPOSITORY_ANALYSIS.md)
-2. Review [RECOMMENDATIONS.md](RECOMMENDATIONS.md)
+1. Read [DEVELOPMENT_GUIDE.md](DEVELOPMENT_GUIDE.md)
+2. Review contributing guidelines
 3. Pick an improvement to work on
 4. Open a pull request
 
@@ -340,4 +330,4 @@ python deepfakebench/test.py \
 
 ---
 
-**Need more details?** See the comprehensive analysis in [REPOSITORY_ANALYSIS.md](REPOSITORY_ANALYSIS.md) 📖
+**Need more details?** See the comprehensive guides in the documentation files above 📖
